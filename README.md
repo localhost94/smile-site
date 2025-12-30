@@ -25,8 +25,9 @@ SMILE is a comprehensive logistics management platform developed jointly by the 
 
 1. Clone this repository
 2. Navigate to the `site` directory
-3. Serve the site locally using Jekyll or any static site generator
-4. Deploy to GitHub Pages or your preferred hosting platform
+3. Open `index.html` in your browser to view the documentation hub
+4. Access documents either as markdown source or rendered HTML versions
+5. Deploy to GitHub Pages or your preferred hosting platform
 
 ## Local Development
 
