@@ -1,324 +1,307 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>UNDPINDO - SMILE Platform Development and Upgrades : Deployment and Installation Guide</title>
-        <link rel="stylesheet" href="styles/site.css" type="text/css" />
-        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment and Installation Guide</title>
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .confluence-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .confluence-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: 2rem;
+        }
+        .confluence-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        .confluence-content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+        .confluence-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .confluence-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .confluence-content ul, .confluence-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        .confluence-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+        .confluence-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .confluence-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .confluence-content th, .confluence-content td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .confluence-content th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .confluence-content tr:last-child td {
+            border-bottom: none;
+        }
+        .confluence-content pre {
+            background: var(--text-primary);
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .confluence-content code {
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .confluence-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .confluence-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .confluence-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .confluence-content a:hover {
+            border-bottom-color: var(--primary-color);
+        }
+        .back-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .back-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .back-nav a:hover {
+            background: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+        .back-nav span {
+            color: var(--text-secondary);
+        }
+        .page-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .confluence-information-macro {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .toc-macro {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .toc-macro ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .toc-macro li {
+            margin-bottom: 0.5rem;
+        }
+        .toc-macro a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .toc-macro a:hover {
+            color: var(--primary-color);
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--border-color);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">S</div>
+                <span>SMILE Platform</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html#docs" class="nav-link">Documentation</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-    <body class="theme-default aui-theme-default">
-        <div id="page">
-            <div id="main" class="aui-page-panel">
-                <div id="main-header">
-                    <div id="breadcrumb-section">
-                        <ol id="breadcrumbs">
-                            <li class="first">
-                                <span><a href="index.html">UNDPINDO - SMILE Platform Development and Upgrades</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="UNDPINDO---SMILE-Platform-Development-and-Upgrades-Home_5062165096.html">UNDPINDO - SMILE Platform Development and Upgrades Home</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Core-Processes_5518885692.html">Core Processes</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Technical-Writing-Process_5355601942.html">Technical Writing Process</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Product-Documentation_5372248109.html">Product Documentation</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="SMILE-5.0-Knowledge-Base_5632262348.html">SMILE 5.0 Knowledge Base</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Technical-Knowledge-Base_5642125446.html">Technical Knowledge Base</a></span>
-                            </li>
-                                                </ol>
-                    </div>
-                    <h1 id="title-heading" class="pagetitle">
-                                                <span id="title-text">
-                            UNDPINDO - SMILE Platform Development and Upgrades : Deployment and Installation Guide
-                        </span>
-                    </h1>
-                </div>
+    <div class="confluence-wrapper">
+        <div class="back-nav">
+            <a href="../index.html">
+                <span>â†</span> Back to Documentation
+            </a>
+            <span>Home / Documentation / Deployment and Installation Guide</span>
+        </div>
 
-                <div id="content" class="view">
-                    <div class="page-metadata">
-                            
-        
-    
-        
-    
-        
-        
-            Created by <span class='author'> Wildanush Sholihin Malik</span>, last modified on Jul 07, 2025
-                        </div>
-                    <div id="main-content" class="wiki-content group">
-                    <div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This article was last updated on <time datetime="2025-07-07" class="date-past">07 Jul 2025</time> </p></div></div><style type='text/css'>/*<![CDATA[*/
-div.rbtoc1766968433259 {padding: 0px;}
-div.rbtoc1766968433259 ul {list-style: default;margin-left: 0px;}
-div.rbtoc1766968433259 li {margin-left: 0px;padding-left: 0px;}
-
-/*]]>*/</style><div class='toc-macro rbtoc1766968433259'>
-<ul class='toc-indentation'>
-<li><a href='#DeploymentandInstallationGuide-About'>About</a></li>
-<li><a href='#DeploymentandInstallationGuide-Environments'>Environments</a></li>
-<li><a href='#DeploymentandInstallationGuide-DeploymentStrategy'>Deployment Strategy</a></li>
-<li><a href='#DeploymentandInstallationGuide-FileStructure'>File Structure</a>
-<ul class='toc-indentation'>
-<li><a href='#DeploymentandInstallationGuide-ApplicationStructure'>Application Structure</a></li>
-<li><a href='#DeploymentandInstallationGuide-HelmChartStructure'>Helm Chart Structure</a></li>
-</ul>
-</li>
-<li><a href='#DeploymentandInstallationGuide-HowItWorks'>How It Works</a>
-<ul class='toc-indentation'>
-<li><a href='#DeploymentandInstallationGuide-DeploymentProcess'>Deployment Process</a></li>
-<li><a href='#DeploymentandInstallationGuide-ConfigurationManagement'>Configuration Management</a></li>
-</ul>
-</li>
-<li><a href='#DeploymentandInstallationGuide-DeploymentInstructions'>Deployment Instructions</a>
-<ul class='toc-indentation'>
-<li><a href='#DeploymentandInstallationGuide-Prerequisites'>Prerequisites</a></li>
-<li><a href='#DeploymentandInstallationGuide-InitialDeployment'>Initial Deployment</a></li>
-<li><a href='#DeploymentandInstallationGuide-DeployingIndividualComponents'>Deploying Individual Components</a></li>
-<li><a href='#DeploymentandInstallationGuide-UpdatingExistingInfrastructure'>Updating Existing Infrastructure</a></li>
-<li><a href='#DeploymentandInstallationGuide-DestroyingInfrastructure'>Destroying Infrastructure</a></li>
-<li><a href='#DeploymentandInstallationGuide-HandlingDeploymentErrors'>Handling Deployment Errors</a></li>
-<li><a href='#DeploymentandInstallationGuide-Post-DeploymentConfiguration'>Post-Deployment Configuration</a></li>
-</ul>
-</li>
-<li><a href='#DeploymentandInstallationGuide-CommonTasks'>Common Tasks</a>
-<ul class='toc-indentation'>
-<li><a href='#DeploymentandInstallationGuide-AddingaNewService'>Adding a New Service</a></li>
-<li><a href='#DeploymentandInstallationGuide-ScalingResources'>Scaling Resources</a></li>
-<li><a href='#DeploymentandInstallationGuide-AccessingResources'>Accessing Resources</a></li>
-<li><a href='#DeploymentandInstallationGuide-Monitoring&amp;Backup'>Monitoring &amp; Backup</a></li>
-<li><a href='#DeploymentandInstallationGuide-Backup&amp;DisasterRecovery'>Backup &amp; Disaster Recovery</a></li>
-</ul>
-</li>
-<li><a href='#DeploymentandInstallationGuide-Notes&amp;Recommendations'>Notes &amp; Recommendations</a></li>
-<li><a href='#DeploymentandInstallationGuide-RevisionHistory'>Revision History</a></li>
-</ul>
-</div><h1 id="DeploymentandInstallationGuide-About">About</h1><hr/><p>This document provides an overview of the SMILE5 application infrastructure deployed on AWS. The infrastructure is managed using Terragrunt and Terraform with support for multiple environments.</p><h1 id="DeploymentandInstallationGuide-Environments">Environments</h1><hr/><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="c8f21cce-a346-4e1f-9ac7-d2233ace65fa" class="confluenceTable"><tbody><tr><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Environment</strong></p></th><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Purpose</strong></p></th><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Location</strong></p></th></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Dev</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Developer testing, previews</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p><code>environments/dev</code></p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Staging</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>User Acceptance Testing, QA, validation</p></td><td class="confluenceTd"><p><code>environments/uat</code></p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Production</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Live application</p></td><td class="confluenceTd"><p><code>environments/prod</code></p></td></tr></tbody></table></div><h1 id="DeploymentandInstallationGuide-DeploymentStrategy">Deployment Strategy</h1><hr/><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="191597c9-b01e-48b2-9722-924012dbd0fe" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p style="text-align: center;"><strong>Environment</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Flow</strong></p></th></tr><tr><td class="confluenceTd"><p>Dev Commit</p></td><td class="confluenceTd"><ol start="1"><li><p>Developer completed the code;</p></li><li><p>Developer requests an Merge-Request (MR) to Dev branch;</p></li><li><p>System Analyst accepts the MR;</p></li><li><p>The code is merged with the current Dev branch code;</p></li><li><p>The code is deployed to the Dev environment.</p></li></ol></td></tr><tr><td class="confluenceTd"><p>Staging Commit</p></td><td class="confluenceTd"><ol start="1"><li><p>System Analyst analyses the code stability on the Dev environment;</p></li><li><p>The code is stable on the Dev environment;</p></li><li><p>System analyst running the pipeline for deployment;</p></li><li><p>The code is merged with the current main/master branch code;</p></li><li><p>The code is deployed to the Staging environment.</p></li></ol></td></tr><tr><td class="confluenceTd"><p>Production Commit </p></td><td class="confluenceTd"><ol start="1"><li><p>User Acceptance Testing (UAT) is conducted and approved on the Staging environment;</p></li><li><p>System Analyst creates tagging with pattern <code>vX.X.X</code> from the main/master branch;</p></li><li><p>The code is deployed to the Production environment.</p></li></ol></td></tr></tbody></table></div><h1 id="DeploymentandInstallationGuide-FileStructure">File Structure</h1><hr/><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">├── environments
-│   ├── Makefile
-│   ├── prod
-│   │   ├── aws_backup
-│   │   │   └── terragrunt.hcl
-│   │   ├── aws_mq
-│   │   │   └── terragrunt.hcl
-│   │   ├── aws_redis
-│   │   │   └── terragrunt.hcl
-│   │   ├── aws_secrets
-│   │   │   └── terragrunt.hcl
-│   │   ├── aws_waf
-│   │   │   └── terragrunt.hcl
-│   │   ├── buckets
-│   │   │   └── terragrunt.hcl
-│   │   ├── ec2
-│   │   │   └── terragrunt.hcl
-│   │   ├── ecr
-│   │   │   └── terragrunt.hcl
-│   │   ├── eks_clusters
-│   │   │   └── terragrunt.hcl
-│   │   ├── iam
-│   │   │   └── terragrunt.hcl
-│   │   ├── rds
-│   │   │   └── terragrunt.hcl
-│   │   ├── route53
-│   │   │   └── terragrunt.hcl
-│   │   ├── security_groups
-│   │   │   └── terragrunt.hcl
-│   │   ├── sg_rule
-│   │   │   └── terragrunt.hcl
-│   │   ├── terragrunt.hcl
-│   │   ├── vars.yaml
-│   │   └── vpc
-│   │       └── terragrunt.hcl
-│   ├── tfsec-reports
-│   └── uat
-│       ├── aws_backup
-│       │   ├── terraform.tfvars.json
-│       │   └── terragrunt.hcl
-│       ├── aws_mq
-│       │   └── terragrunt.hcl
-│       ├── aws_redis
-│       │   └── terragrunt.hcl
-│       ├── aws_secrets
-│       │   └── terragrunt.hcl
-│       ├── aws_waf
-│       │   └── terragrunt.hcl
-│       ├── buckets
-│       │   └── terragrunt.hcl
-│       ├── ec2
-│       │   └── terragrunt.hcl
-│       ├── ecr
-│       │   └── terragrunt.hcl
-│       ├── eks_clusters
-│       │   └── terragrunt.hcl
-│       ├── iam
-│       │   └── terragrunt.hcl
-│       ├── Makefile
-│       ├── rds
-│       │   └── terragrunt.hcl
-│       ├── route53
-│       │   └── terragrunt.hcl
-│       ├── security_groups
-│       │   └── terragrunt.hcl
-│       ├── sg_rule
-│       │   └── terragrunt.hcl
-│       ├── terragrunt.hcl
-│       ├── vars.yaml
-│       └── vpc
-│           └── terragrunt.hcl
-
-</pre>
-</div></div><h2 id="DeploymentandInstallationGuide-ApplicationStructure">Application Structure</h2><p>Explain what the user is downloading/cloning and how the repo or folder hierarchy is structured.</p><div class="confluence-information-macro confluence-information-macro-tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>See the example below.</p></div></div><p>After cloning the project repository, the folder structure will look as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: php; gutter: false; theme: Confluence" data-theme="Confluence">project-root/
-├── backend/                  # Backend services (API, database connectors)
-│   ├── src/
-│   ├── config/
-│   └── package.json
-├── frontend/                 # Web application frontend
-│   ├── public/
-│   ├── src/
-│   └── package.json
-├── mobile/                   # Mobile app (React Native)
-│   ├── assets/
-│   ├── src/
-│   └── app.json
-├── keycloak/                 # Authentication configurations and realm export
-│   └── realm-export.json
-├── scripts/                  # Deployment and migration scripts
-│   ├── deploy.sh
-│   └── migrate.sql
-├── .env.example              # Environment variable template
-├── docker-compose.yml        # Containerized deployment setup
-├── README.md
-└── INSTALLATION.md           # This installation guide
-</pre>
-</div></div><p>Notes:</p><ul><li><p><strong>backend/</strong>: Contains the core logic, API routes, and service configurations.</p></li><li><p><strong>frontend/</strong>: Holds the React-based frontend app; needs to be built and served.</p></li><li><p><strong>mobile/</strong>: React Native mobile app for Android/iOS deployment via Expo or native builds.</p></li><li><p><strong>keycloak/</strong>: Used to configure Keycloak with pre-defined users, roles, and clients.</p></li><li><p><strong>scripts/</strong>: Includes reusable scripts for database migration, deployment, or seeding.</p></li><li><p><strong>.env.example</strong>: Use this file as a starting point to create your own <code>.env</code> configuration file.</p></li><li><p><strong>docker-compose.yml</strong>: Simplifies the setup process using containers (if Docker is preferred).</p></li></ul><h2 id="DeploymentandInstallationGuide-HelmChartStructure">Helm Chart Structure</h2><p>The structure for Kubernetes helm chart should be like this</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: php; gutter: false; theme: Confluence" data-theme="Confluence">templates/                     # Kubernetes manifests templates
-  ├── deployment.yaml          # Deployment manifests for all services
-  ├── service.yaml             # Service manifests for all services
-  ├── hpa.yaml                 # Horizontal Pod Autoscaler manifests for all services
-  ├── _helpers.tpl             # Template helper functions
-├── Chart.yaml                 # Chart metadata
-├── values.yaml                # Default configuration values for all services</pre>
-</div></div><h1 id="DeploymentandInstallationGuide-HowItWorks">How It Works</h1><hr/><h2 id="DeploymentandInstallationGuide-DeploymentProcess">Deployment Process</h2><ol start="1"><li><p>Changes are made to the environment-specific vars.yaml file</p></li><li><p>Terragrunt reads the configuration and generates Terraform code</p></li><li><p>Terraform applies the changes to the AWS infrastructure</p></li><li><p>Application deployments target the provisioned infrastructure</p></li></ol><h2 id="DeploymentandInstallationGuide-ConfigurationManagement">Configuration Management</h2><p>All environment-specific settings are stored in the vars.yaml file within each environment directory. This includes:</p><ul><li><p>Network settings</p></li><li><p>Instance types and sizes</p></li><li><p>Security configurations</p></li><li><p>Storage settings</p></li></ul><h1 id="DeploymentandInstallationGuide-DeploymentInstructions">Deployment Instructions</h1><hr/><h2 id="DeploymentandInstallationGuide-Prerequisites">Prerequisites</h2><p>Before deploying the SMILE5 infrastructure, ensure you have the following prerequisites:</p><ul><li><p><strong>AWS CLI</strong> - Configured with appropriate credentials</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">aws configure</pre>
-</div></div><ul><li><p><strong>Terraform</strong> - Version 1.0.0 or later</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">terraform --version</pre>
-</div></div><ul><li><p><strong>Terragrunt</strong> - Version 0.35.0 or later</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">terragrunt --version</pre>
-</div></div><ul><li><p><strong>kubectl </strong>- For interacting with Kubernetes clusters</p></li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">kubectl version --client</pre>
-</div></div><ul><li><p><strong>AWS IAM Permissions</strong> - Ensure your AWS user has sufficient permissions to create all required resources</p></li></ul><p /><h2 id="DeploymentandInstallationGuide-InitialDeployment">Initial Deployment</h2><p>To deploy the SMILE5 infrastructure for the first time:</p><ol start="1"><li><p><strong>Clone the Repository</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git clone &lt;repository-url&gt;
-cd tf-aws-smile</pre>
-</div></div><ol start="2"><li><p><strong>Review and Customize Configuration</strong> Edit the environment-specific vars.yaml file to adjust any settings:</p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment
-vim environments/uat/vars.yaml 
-
-# Production environment
-vim environments/prod/vars.yaml</pre>
-</div></div><ol start="3"><li><p><strong>Initialize Terragrunt</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all init --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all init --terragrunt-working-dir=environments/prod</pre>
-</div></div><ol start="4"><li><p><strong>Plan the Deployment</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/prod</pre>
-</div></div><ol start="5"><li><p><strong>Apply the Configuration</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: plain; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all apply --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all apply --terragrunt-working-dir=environments/prod</pre>
-</div></div><p>When prompted, type yes to confirm the deployment.</p><ol start="6"><li><p><strong>Verify Deployment </strong><br/>After deployment, verify the resources have been created correctly in the AWS console or using AWS CLI.</p></li></ol><p /><h2 id="DeploymentandInstallationGuide-DeployingIndividualComponents">Deploying Individual Components</h2><p>SMILE5 infrastructure is modular. You can deploy specific components:</p><ol start="1"><li><p><strong>Deploy VPC Only</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/uat/vpc 
-terragrunt run-all apply --terragrunt-working-dir=environments/uat/vpc 
-
-# Production environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/prod/vpc 
-terragrunt run-all apply --terragrunt-working-dir=environments/prod/vpc</pre>
-</div></div><ol start="2"><li><p><strong>Deploy EKS Clusters</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/uat/eks_clusters 
-terragrunt run-all apply --terragrunt-working-dir=environments/uat/eks_clusters 
-
-# Production environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/prod/eks_clusters 
-terragrunt run-all apply --terragrunt-working-dir=environments/prod/eks_clusters</pre>
-</div></div><ol start="3"><li><p><strong>Deploy RDS Instances</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/uat/rds 
-terragrunt run-all apply --terragrunt-working-dir=environments/uat/rds 
-
-# Production environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/prod/rds 
-terragrunt run-all apply --terragrunt-working-dir=environments/prod/rds</pre>
-</div></div><p /><h2 id="DeploymentandInstallationGuide-UpdatingExistingInfrastructure">Updating Existing Infrastructure</h2><p>To update the existing infrastructure:</p><ol start="1"><li><p><strong>Pull Latest Changes</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">git pull</pre>
-</div></div><ol start="2"><li><p><strong>Update Configuration</strong> Edit the environment-specific vars.yaml file with your changes:</p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-vim environments/uat/vars.yaml 
-
-# Production environment vim environments/prod/vars.yaml</pre>
-</div></div><ol start="3"><li><p><strong>Plan Changes</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all plan --terragrunt-working-dir=environments/prod</pre>
-</div></div><p>Review the planned changes carefully.</p><ol start="4"><li><p><strong>Apply Changes</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all apply --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all apply --terragrunt-working-dir=environments/prod</pre>
-</div></div><p /><h2 id="DeploymentandInstallationGuide-DestroyingInfrastructure">Destroying Infrastructure</h2><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>CAUTION</strong>: This will delete all resources. Use with extreme care!</p></div></div><p>To destroy the infrastructure (for example, in a development environment):</p><ol start="1"><li><p><strong>Plan the Destruction</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all plan -destroy --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all plan -destroy --terragrunt-working-dir=environments/prod</pre>
-</div></div><ol start="2"><li><p><strong>Destroy Resources</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all destroy --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all destroy --terragrunt-working-dir=environments/prod</pre>
-</div></div><p>When prompted, type yes to confirm.</p><p /><h2 id="DeploymentandInstallationGuide-HandlingDeploymentErrors">Handling Deployment Errors</h2><p>If you encounter errors during deployment:</p><ol start="1"><li><p>Read Error Messages Terragrunt provides detailed error messages that can help identify the issue.</p></li><li><p>Check AWS Console Sometimes resources may be created but not properly tracked by Terraform state.</p></li><li><p>Run with Debug Logs</p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Staging environment 
-terragrunt run-all apply --terragrunt-log-level debug --terragrunt-working-dir=environments/uat 
-
-# Production environment 
-terragrunt run-all apply --terragrunt-log-level debug --terragrunt-working-dir=environments/prod</pre>
-</div></div><p /><h2 id="DeploymentandInstallationGuide-Post-DeploymentConfiguration">Post-Deployment Configuration</h2><p>After successful deployment:</p><ol start="1"><li><p><strong>Configure kubectl for EKS Clusters</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">aws eks update-kubeconfig --region ap-southeast-3 --name smile5-uat-app 
-aws eks update-kubeconfig --region ap-southeast-3 --name smile5-uat-data</pre>
-</div></div><ol start="2"><li><p><strong>Verify EKS Connectivity</strong></p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">kubectl get nodes</pre>
-</div></div><ol start="3"><li><p><strong>Access RDS Databases</strong> Connect through the Bastion host:</p></li></ol><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">ssh -i your-key.pem ec2-user@bastion-ip mysql -h rds-endpoint -u username -p</pre>
-</div></div><ol start="4"><li><p><strong>Set Up Application Secrets</strong> Update the secrets in AWS Secrets Manager with actual values.</p></li></ol><h1 id="DeploymentandInstallationGuide-CommonTasks">Common Tasks</h1><hr/><h2 id="DeploymentandInstallationGuide-AddingaNewService">Adding a New Service</h2><ol start="1"><li><p>Add the required ECR repository in the ecr section of <code>vars.yaml</code></p></li><li><p>Add any required secrets in the <code>aws_secrets </code>section</p></li><li><p>Apply the changes with Terragrunt</p></li><li><p>Deploy the service to the appropriate EKS cluster</p></li></ol><h2 id="DeploymentandInstallationGuide-ScalingResources">Scaling Resources</h2><p>To scale a component:</p><ol start="1"><li><p>Modify the appropriate section in <code>vars.yaml</code>:</p><ul><li><p><strong>For EKS</strong>: Update <code>min_size</code>, <code>max_size</code>, and <code>desired_size</code></p></li><li><p><strong>For RDS</strong>: Update <code>instance_class </code>or <code>allocated_storage</code></p></li></ul></li><li><p>Apply the changes with Terragrunt</p></li></ol><h2 id="DeploymentandInstallationGuide-AccessingResources">Accessing Resources</h2><ul><li><p><strong>Databases</strong>: Connect through the bastion host</p></li><li><p><strong>EKS Clusters</strong>: Use kubectl with AWS authentication</p></li><li><p><strong>Private Services</strong>: Access via the bastion host</p></li></ul><h2 id="DeploymentandInstallationGuide-Monitoring&amp;Backup">Monitoring &amp; Backup</h2><ul><li><p><strong>RDS Monitoring</strong>: Enhanced monitoring enabled (30-second intervals)</p></li><li><p><strong>Log Management</strong>: VPC flow logs stored in dedicated S3 bucket</p></li><li><p><strong>Backup Plan</strong>: Daily backups with 7-day retention</p></li></ul><h2 id="DeploymentandInstallationGuide-Backup&amp;DisasterRecovery">Backup &amp; Disaster Recovery</h2><ul><li><p>Backup service utilises the <strong>Amazon Backup </strong>service from AWS;</p></li><li><p>Backups will be conducted across <strong>all three branches</strong> (dev, staging, and production) that were created via Terraform;</p></li><li><p>Backups are targeted based on the <strong>resource tag</strong> on Terraform;</p></li><li><p>Backups are scheduled to <strong>run daily at 03:00 Western Indonesian Time</strong> (WIB) or 20:00 Coordinated Universal Time (UTC);</p></li><li><p>Backup retention policy period <strong>will store</strong> the backed-up data <strong>for 7 days</strong>.</p></li></ul><h1 id="DeploymentandInstallationGuide-Notes&amp;Recommendations">Notes &amp; Recommendations</h1><hr/><ul><li><p>The infrastructure uses a single NAT gateway for cost optimization in UAT</p></li><li><p>Production environment should consider multi-AZ deployment for critical components</p></li><li><p>Security groups are configured for least-privilege access</p></li><li><p>Regular review of IAM permissions is recommended</p></li></ul><h1 id="DeploymentandInstallationGuide-RevisionHistory">Revision History</h1><hr/><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Internal Use Only. This content is not intended for publication in the live environment.</strong></p></div></div><div class="table-wrap"><table data-table-width="760" data-layout="center" data-local-id="48d080f1-0b92-4cea-a711-e1fdfb1a0c99" class="confluenceTable"><colgroup><col style="width: 125.0px;"/><col style="width: 366.0px;"/><col style="width: 152.0px;"/><col style="width: 117.0px;"/></colgroup><tbody><tr><th class="confluenceTh"><p style="text-align: center;"><strong>Date</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Change description</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Author</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Status</strong></p></th></tr><tr><td class="confluenceTd"><p style="text-align: center;"><time datetime="2025-07-07" class="date-past">07 Jul 2025</time><strong> </strong></p></td><td class="confluenceTd"><p>Created first draft and confirmed by Infra Team</p></td><td class="confluenceTd"><p style="text-align: center;">TW</p></td><td class="confluenceTd"><p style="text-align: center;">Done</p></td></tr><tr><td class="confluenceTd"><p /></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p style="text-align: center;"></p></td></tr><tr><td class="confluenceTd"><p /></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p style="text-align: center;"></p></td></tr></tbody></table></div><p />
-                    </div>
-
-                    
-                                                      
-                </div>             </div> 
-            <div id="footer" role="contentinfo">
-                <section class="footer-body">
-                    <p>Document generated by Confluence on Dec 29, 2025 00:33</p>
-                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
-                </section>
+        <div class="confluence-content">
+            <h1>Deployment and Installation Guide</h1>
+            
+            <div class="confluence-information-macro">
+                <p>This article was last updated on 26 Jun 2025</p>
             </div>
-        </div>     </body>
+
+            <h2>Overview</h2>
+<p>This guide provides comprehensive instructions for deploying SMILE5 on AWS infrastructure.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li>AWS account with appropriate permissions</li>
+    <li>kubectl and AWS CLI installed</li>
+    <li>Docker installed and configured</li>
+    <li>Domain name for the deployment (optional)</li>
+</ul>
+
+<h2>Deployment Steps</h2>
+<ol>
+    <li><strong>Prepare AWS Environment</strong>
+        <ul>
+            <li>Create VPC and subnets</li>
+            <li>Set up security groups</li>
+            <li>Configure IAM roles</li>
+        </ul>
+    </li>
+    <li><strong>Deploy Kubernetes Cluster</strong>
+        <ul>
+            <li>Create EKS cluster</li>
+            <li>Configure worker nodes</li>
+            <li>Set up networking</li>
+        </ul>
+    </li>
+    <li><strong>Install Dependencies</strong>
+        <ul>
+            <li>Deploy Ingress controller</li>
+            <li>Set up monitoring</li>
+            <li>Configure logging</li>
+        </ul>
+    </li>
+    <li><strong>Deploy SMILE Application</strong>
+        <ul>
+            <li>Build and push Docker images</li>
+            <li>Apply Kubernetes manifests</li>
+            <li>Configure ingress and SSL</li>
+        </ul>
+    </li>
+</ol>
+
+<h2>Configuration</h2>
+<p>Update the following configuration files:</p>
+<ul>
+    <li><code>config/production.yaml</code> - Environment settings</li>
+    <li><code>k8s/secrets.yaml</code> - Sensitive data</li>
+    <li><code>k8s/ingress.yaml</code> - Routing rules</li>
+</ul>
+
+<h2>Troubleshooting</h2>
+<p>Common issues and solutions:</p>
+<ul>
+    <li>Pod not starting - Check resource limits</li>
+    <li>Database connection errors - Verify credentials</li>
+    <li>Ingress not working - Check ALB configuration</li>
+</ul>
+
+            <div class="page-info">
+                <div>Last updated: 26 Jun 2025</div>
+                <div>SMILE Platform Documentation</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Use</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+            <div class="footer-text">
+                Â© 2024 SMILE Platform. A Digital Public Good initiative.
+            </div>
+        </div>
+    </footer>
+</body>
 </html>

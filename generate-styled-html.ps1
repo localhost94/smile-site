@@ -1,9 +1,27 @@
-﻿<!DOCTYPE html>
+# Generate styled HTML files for all documentation
+
+# Read the original content files
+$docsPath = "c:\Badr\UN ICC\Confluence\site\docs"
+$originalHtmlPath = "c:\Badr\UN ICC\Confluence\html"
+$targetPath = "c:\Badr\UN ICC\Confluence\site\assets\html"
+
+# Function to create styled HTML
+function Create-StyledHtml {
+    param(
+        [string]$Title,
+        [string]$Subtitle,
+        [string]$ContentFile,
+        [string]$OutputFile,
+        [string]$LastUpdated = "Unknown"
+    )
+    
+    $template = @"
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Overview Document</title>
+    <title>$Title</title>
     <link rel="stylesheet" href="../assets/styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,19 +231,113 @@
     <div class="confluence-wrapper">
         <div class="back-nav">
             <a href="../index.html">
-                <span>â†</span> Back to Documentation
+                <span>←</span> Back to Documentation
             </a>
-            <span>Home / Documentation / Technical Overview Document</span>
+            <span>Home / Documentation / $Title</span>
         </div>
 
         <div class="confluence-content">
-            <h1>Technical Overview Document</h1>
+            <h1>$Title</h1>
             
             <div class="confluence-information-macro">
-                <p>This article was last updated on 19 Jun 2025</p>
+                <p>This article was last updated on $LastUpdated</p>
             </div>
 
-            <h2>Introduction</h2>
+            $ContentFile
+
+            <div class="page-info">
+                <div>Last updated: $LastUpdated</div>
+                <div>SMILE Platform Documentation</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Use</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+            <div class="footer-text">
+                © 2024 SMILE Platform. A Digital Public Good initiative.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+"@
+    
+    $template | Out-File -FilePath $OutputFile -Encoding UTF8
+}
+
+# Create styled version for deployment-guide
+$deploymentContent = @"
+<h2>Overview</h2>
+<p>This guide provides comprehensive instructions for deploying SMILE5 on AWS infrastructure.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li>AWS account with appropriate permissions</li>
+    <li>kubectl and AWS CLI installed</li>
+    <li>Docker installed and configured</li>
+    <li>Domain name for the deployment (optional)</li>
+</ul>
+
+<h2>Deployment Steps</h2>
+<ol>
+    <li><strong>Prepare AWS Environment</strong>
+        <ul>
+            <li>Create VPC and subnets</li>
+            <li>Set up security groups</li>
+            <li>Configure IAM roles</li>
+        </ul>
+    </li>
+    <li><strong>Deploy Kubernetes Cluster</strong>
+        <ul>
+            <li>Create EKS cluster</li>
+            <li>Configure worker nodes</li>
+            <li>Set up networking</li>
+        </ul>
+    </li>
+    <li><strong>Install Dependencies</strong>
+        <ul>
+            <li>Deploy Ingress controller</li>
+            <li>Set up monitoring</li>
+            <li>Configure logging</li>
+        </ul>
+    </li>
+    <li><strong>Deploy SMILE Application</strong>
+        <ul>
+            <li>Build and push Docker images</li>
+            <li>Apply Kubernetes manifests</li>
+            <li>Configure ingress and SSL</li>
+        </ul>
+    </li>
+</ol>
+
+<h2>Configuration</h2>
+<p>Update the following configuration files:</p>
+<ul>
+    <li><code>config/production.yaml</code> - Environment settings</li>
+    <li><code>k8s/secrets.yaml</code> - Sensitive data</li>
+    <li><code>k8s/ingress.yaml</code> - Routing rules</li>
+</ul>
+
+<h2>Troubleshooting</h2>
+<p>Common issues and solutions:</p>
+<ul>
+    <li>Pod not starting - Check resource limits</li>
+    <li>Database connection errors - Verify credentials</li>
+    <li>Ingress not working - Check ALB configuration</li>
+</ul>
+"@
+
+Create-StyledHtml -Title "Deployment and Installation Guide" -ContentFile $deploymentContent -OutputFile "$targetPath\deployment-guide.html" -LastUpdated "26 Jun 2025"
+
+# Create styled version for technical-overview
+$technicalContent = @"
+<h2>Introduction</h2>
 <p>The SMILE Technical Overview provides a comprehensive understanding of the platform's architecture, technologies, and implementation details.</p>
 
 <h2>Technology Stack</h2>
@@ -280,25 +392,67 @@
     <li>Encryption at rest and in transit</li>
     <li>Regular security audits</li>
 </ul>
+"@
 
-            <div class="page-info">
-                <div>Last updated: 19 Jun 2025</div>
-                <div>SMILE Platform Documentation</div>
-            </div>
-        </div>
-    </div>
+Create-StyledHtml -Title "Technical Overview Document" -ContentFile $technicalContent -OutputFile "$targetPath\technical-overview.html" -LastUpdated "19 Jun 2025"
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-links">
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Use</a>
-                <a href="#" class="footer-link">Support</a>
-            </div>
-            <div class="footer-text">
-                Â© 2024 SMILE Platform. A Digital Public Good initiative.
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+# Create styled version for dpg-tasks-tracker
+$dpgContent = @"
+<h2>DPG Application Process</h2>
+<p>This tracker outlines the tasks and requirements for SMILE's Digital Public Good (DPG) application process.</p>
+
+<h2>Governance Requirements</h2>
+<h3>Documentation</h3>
+<ul>
+    <li>Technical documentation complete</li>
+    <li>User guides and manuals</li>
+    <li>API documentation</li>
+    <li>Deployment guides</li>
+</ul>
+
+<h3>Legal & Compliance</h3>
+<ul>
+    <li>License verification</li>
+    <li>Privacy policy</li>
+    <li>Terms of use</li>
+    <li>Data handling procedures</li>
+</ul>
+
+<h2>Technical Standards</h2>
+<h3>Code Quality</h3>
+<ul>
+    <li>Code review process</li>
+    <li>Automated testing</li>
+    <li>Documentation standards</li>
+    <li>Version control</li>
+</ul>
+
+<h3>Infrastructure</h3>
+<ul>
+    <li>Scalability requirements</li>
+    <li>Security measures</li>
+    <li>Monitoring and logging</li>
+    <li>Backup procedures</li>
+</ul>
+
+<h2>Community Engagement</h2>
+<ul>
+    <li>GitHub repository setup</li>
+    <li>Contribution guidelines</li>
+    <li>Community support channels</li>
+    <li>Regular updates and releases</li>
+</ul>
+
+<h2>Evidence Collection</h2>
+<p>Required evidence for DPG recognition:</p>
+<ul>
+    <li>Case studies from implementations</li>
+    <li>User testimonials</li>
+    <li>Performance metrics</li>
+    <li>Impact assessments</li>
+</ul>
+"@
+
+Create-StyledHtml -Title "DPG Tasks Tracker" -ContentFile $dpgContent -OutputFile "$targetPath\dpg-tasks-tracker.html" -LastUpdated "19 Jun 2025"
+
+Write-Host "All styled HTML files created successfully!"
