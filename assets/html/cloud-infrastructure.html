@@ -1,63 +1,222 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>UNDPINDO - SMILE Platform Development and Upgrades : SMILE Cloud Infrastructure</title>
-        <link rel="stylesheet" href="styles/site.css" type="text/css" />
-        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMILE Cloud Infrastructure</title>
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .confluence-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .confluence-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: 2rem;
+        }
+        .confluence-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        .confluence-content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+        .confluence-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .confluence-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .confluence-content ul, .confluence-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        .confluence-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+        .confluence-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .confluence-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .confluence-content th, .confluence-content td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .confluence-content th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .confluence-content tr:last-child td {
+            border-bottom: none;
+        }
+        .confluence-content pre {
+            background: var(--text-primary);
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .confluence-content code {
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .confluence-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .confluence-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .confluence-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .confluence-content a:hover {
+            border-bottom-color: var(--primary-color);
+        }
+        .back-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .back-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .back-nav a:hover {
+            background: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+        .back-nav span {
+            color: var(--text-secondary);
+        }
+        .toc {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .toc a:hover {
+            color: var(--primary-color);
+        }
+        .page-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
 
-    <body class="theme-default aui-theme-default">
-        <div id="page">
-            <div id="main" class="aui-page-panel">
-                <div id="main-header">
-                    <div id="breadcrumb-section">
-                        <ol id="breadcrumbs">
-                            <li class="first">
-                                <span><a href="index.html">UNDPINDO - SMILE Platform Development and Upgrades</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="UNDPINDO---SMILE-Platform-Development-and-Upgrades-Home_5062165096.html">UNDPINDO - SMILE Platform Development and Upgrades Home</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Core-Processes_5518885692.html">Core Processes</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Technical-Writing-Process_5355601942.html">Technical Writing Process</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Product-Documentation_5372248109.html">Product Documentation</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="SMILE-5.0-Knowledge-Base_5632262348.html">SMILE 5.0 Knowledge Base</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Technical-Knowledge-Base_5642125446.html">Technical Knowledge Base</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="SMILE-Technical-Overview-Document_5805277215.html">SMILE Technical Overview Document</a></span>
-                            </li>
-                                                </ol>
-                    </div>
-                    <h1 id="title-heading" class="pagetitle">
-                                                <span id="title-text">
-                            UNDPINDO - SMILE Platform Development and Upgrades : SMILE Cloud Infrastructure
-                        </span>
-                    </h1>
-                </div>
+    <body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">S</div>
+                <span>SMILE Platform</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html#docs" class="nav-link">Documentation</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-                <div id="content" class="view">
-                    <div class="page-metadata">
-                            
-        
-    
-        
-    
-        
-        
-            Created by <span class='author'> Wildanush Sholihin Malik</span>, last modified on Jul 07, 2025
-                        </div>
-                    <div id="main-content" class="wiki-content group">
-                    <div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This article was last updated on <time datetime="2025-06-26" class="date-past">26 Jun 2025</time> </p></div></div><style type='text/css'>/*<![CDATA[*/
+    <div class="confluence-wrapper">
+        <div class="back-nav">
+            <a href="../index.html">
+                <span>←</span> Back to Documentation
+            </a>
+            <span>Home / Documentation / Cloud Infrastructure</span>
+        </div>
+
+        <div class="confluence-content">
+            <h1>SMILE Cloud Infrastructure</h1>
+            <div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This article was last updated on <time datetime="2025-06-26" class="date-past">26 Jun 2025</time> </p></div></div><style type='text/css'>/*<![CDATA[*/
 div.rbtoc1766968432309 {padding: 0px;}
 div.rbtoc1766968432309 ul {list-style: default;margin-left: 0px;}
 div.rbtoc1766968432309 li {margin-left: 0px;padding-left: 0px;}
@@ -110,22 +269,34 @@ div.rbtoc1766968432309 li {margin-left: 0px;padding-left: 0px;}
                         </div>
 
                         <div class="greybox" align="left">
-                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
-                                <a href="attachments/5791318028/5791285281.png">image-20250522-045953.png</a> (image/png)
+                                                            <img src="../assets/images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="../assets/attachments/5791318028/5791285281.png">image-20250522-045953.png</a> (image/png)
                                 <br/>
-                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
-                                <a href="attachments/5791318028/5842698251.png">image-20250619-101810.png</a> (image/png)
+                                                            <img src="../assets/images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="../assets/attachments/5791318028/5842698251.png">image-20250619-101810.png</a> (image/png)
                                 <br/>
                                                     </div>
                     </div>
                     
-                                                      
-                </div>             </div> 
-            <div id="footer" role="contentinfo">
-                <section class="footer-body">
-                    <p>Document generated by Confluence on Dec 29, 2025 00:33</p>
-                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
-                </section>
+                    <div class="page-info">
+                        <div>Last updated: 26 Jun 2025</div>
+                        <div>SMILE Platform Documentation</div>
+                    </div>
+                </div>
             </div>
-        </div>     </body>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Use</a>
+                    <a href="#" class="footer-link">Support</a>
+                </div>
+                <div class="footer-text">
+                    © 2024 SMILE Platform. A Digital Public Good initiative.
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>

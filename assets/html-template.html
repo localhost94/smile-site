@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMILE Platform - Documentation</title>
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .doc-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .action-btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        .action-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .action-btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .action-btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        .toc {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+        .toc ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .toc a:hover {
+            color: var(--primary-color);
+        }
+        .confluence-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .confluence-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .confluence-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .confluence-content th,
+        .confluence-content td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .confluence-content th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .confluence-content tr:last-child td {
+            border-bottom: none;
+        }
+        .confluence-content pre {
+            background: var(--text-primary);
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .confluence-content code {
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .confluence-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .page-metadata {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">S</div>
+                <span>SMILE Platform</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html#docs" class="nav-link">Documentation</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-link">
+            <span>←</span> Back to Documentation
+        </a>
+
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>/</span>
+            <span>Documentation</span>
+            <span>/</span>
+            <span id="current-page">Current Page</span>
+        </div>
+
+        <div class="doc-header">
+            <h1 id="doc-title">Document Title</h1>
+            <div class="doc-actions">
+                <a href="#" id="view-source" class="action-btn action-btn-secondary">
+                    <span>📄</span> View Source
+                </a>
+                <a href="../index.html" class="action-btn action-btn-primary">
+                    <span>🏠</span> Back to Home
+                </a>
+            </div>
+        </div>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul id="toc-list">
+                <!-- TOC items will be inserted here -->
+            </ul>
+        </div>
+
+        <div class="confluence-content" id="content">
+            <!-- Content will be inserted here -->
+        </div>
+
+        <div class="page-metadata">
+            <div>
+                Last updated: <span id="last-updated">Unknown</span>
+            </div>
+            <div>
+                SMILE Platform Documentation
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Use</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+            <div class="footer-text">
+                © 2024 SMILE Platform. A Digital Public Good initiative.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set page title from filename
+            const filename = window.location.pathname.split('/').pop().replace('.html', '');
+            const titleMap = {
+                'cloud-infrastructure': 'Cloud Infrastructure',
+                'data-streaming': 'Data Streaming Mechanism',
+                'deployment-guide': 'Deployment and Installation Guide',
+                'technical-overview': 'Technical Overview Document',
+                'dpg-tasks-tracker': 'DPG Tasks Tracker'
+            };
+            
+            const title = titleMap[filename] || 'Document';
+            document.getElementById('doc-title').textContent = title;
+            document.getElementById('current-page').textContent = title;
+            document.title = `SMILE Platform - ${title}`;
+            
+            // Set view source link
+            const sourceMap = {
+                'cloud-infrastructure': '../docs/cloud-infrastructure.md',
+                'data-streaming': '../docs/data-streaming.md',
+                'deployment-guide': '../docs/deployment-guide.md',
+                'technical-overview': '../docs/technical-overview.md',
+                'dpg-tasks-tracker': '../docs/dpg/tasks-tracker.md'
+            };
+            
+            const sourceLink = sourceMap[filename];
+            if (sourceLink) {
+                document.getElementById('view-source').href = sourceLink;
+            }
+            
+            // Generate TOC from h2 tags
+            const content = document.getElementById('content');
+            const headings = content.querySelectorAll('h2');
+            const tocList = document.getElementById('toc-list');
+            
+            headings.forEach((heading, index) => {
+                const id = `heading-${index}`;
+                heading.id = id;
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = heading.textContent;
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+            
+            // Smooth scroll for TOC links
+            document.querySelectorAll('.toc a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
