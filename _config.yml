@@ -1,0 +1,44 @@
+theme: jekyll-theme-minimal
+title: SMILE Platform Documentation
+description: Documentation for the SMILE Digital Public Good (DPG) platform
+baseurl: /smile-platform-docs
+url: https://yourusername.github.io
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: DPG Tasks Tracker
+    url: /docs/dpg/tasks-tracker.md
+  - title: Deployment Guide
+    url: /docs/deployment-guide.md
+  - title: Technical Overview
+    url: /docs/technical-overview.md
+  - title: Cloud Infrastructure
+    url: /docs/cloud-infrastructure.md
+  - title: Data Streaming
+    url: /docs/data-streaming.md
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
