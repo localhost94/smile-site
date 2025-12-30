@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UNDPINDO - SMILE Platform Development and Upgrades : Data Streaming Mechanism</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">UNDPINDO - SMILE Platform Development and Upgrades</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="UNDPINDO---SMILE-Platform-Development-and-Upgrades-Home_5062165096.html">UNDPINDO - SMILE Platform Development and Upgrades Home</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Core-Processes_5518885692.html">Core Processes</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Technical-Writing-Process_5355601942.html">Technical Writing Process</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Product-Documentation_5372248109.html">Product Documentation</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SMILE-5.0-Knowledge-Base_5632262348.html">SMILE 5.0 Knowledge Base</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Technical-Knowledge-Base_5642125446.html">Technical Knowledge Base</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="SMILE-Technical-Overview-Document_5805277215.html">SMILE Technical Overview Document</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            UNDPINDO - SMILE Platform Development and Upgrades : Data Streaming Mechanism
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                            
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Wildanush Sholihin Malik</span>, last modified by <span class='editor'> Irina CARP</span> on Jun 26, 2025
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This article was last updated on <time datetime="2025-06-26" class="date-past">26 Jun 2025</time> </p></div></div><style type='text/css'>/*<![CDATA[*/
+div.rbtoc1766968433012 {padding: 0px;}
+div.rbtoc1766968433012 ul {list-style: default;margin-left: 0px;}
+div.rbtoc1766968433012 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style><div class='toc-macro rbtoc1766968433012'>
+<ul class='toc-indentation'>
+<li><a href='#DataStreamingMechanism-About'>About</a></li>
+<li><a href='#DataStreamingMechanism-TechnologyStack'>Technology Stack</a></li>
+<li><a href='#DataStreamingMechanism-Step-to-stepGuide'>Step-to-step Guide</a>
+<ul class='toc-indentation'>
+<li><a href='#DataStreamingMechanism-UsingKubernetes'>Using Kubernetes</a></li>
+</ul>
+</li>
+<li><a href='#DataStreamingMechanism-DataPipeline'>Data Pipeline</a>
+<ul class='toc-indentation'>
+<li><a href='#DataStreamingMechanism-DataSource(MySQL)'>Data Source (MySQL)</a></li>
+<li><a href='#DataStreamingMechanism-DataExtraction(Kafka)'>Data Extraction (Kafka)</a></li>
+<li><a href='#DataStreamingMechanism-DataTransformation(RisingWave)'>Data Transformation (RisingWave)</a></li>
+<li><a href='#DataStreamingMechanism-DataWarehouse(ClickHouse)'>Data Warehouse (ClickHouse)</a></li>
+</ul>
+</li>
+<li><a href='#DataStreamingMechanism-PerformanceOverview'>Performance Overview</a></li>
+<li><a href='#DataStreamingMechanism-RevisionHistory'>Revision History</a></li>
+</ul>
+</div><h1 id="DataStreamingMechanism-About">About</h1><hr/><p>This document provides technical implementation guidance for building a real-time data streaming pipeline that integrates MySQL, Debezium, Kafka, RisingWave, and ClickHouse to enable continuous data flow from OLTP to OLAP systems within the SMILE platform, particularly in the Dashboard and Report service. The document outlines best practices, configuration approaches, and operational considerations required to ensure a robust, scalable, and maintainable streaming architecture. It aims to serve as a reference for both initial setup and ongoing maintenance of the pipeline in containerised environments.</p><h1 id="DataStreamingMechanism-TechnologyStack">Technology Stack</h1><hr/><ul><li><p><strong>MySQL Database: </strong>Acts as the source OLTP database. Must be configured to allow CDC (binlog enabled);</p></li><li><p><strong>Kafka Connect containing Debezium: </strong>Captures real-time data changes (insert, update, delete) from MySQL. Streams changed data into specified Kafka topics;</p></li><li><p><strong>Kafka: </strong>Used as the message broker to receive and forward change events;</p></li><li><p><strong>Risingwave: </strong>Processes and transforms the streamed data. Reads data from Kafka topics, applies transformations, and outputs to different Kafka topics;</p></li><li><p><strong>Clickhouse Database: </strong>Serves as the target OLAP database. Requires table definitions that are compatible with Kafka message formats.</p></li></ul><h1 id="DataStreamingMechanism-Step-to-stepGuide">Step-to-step Guide</h1><hr/><p>To implement the data pipeline configuration for data streaming for SMILE, follow these steps:</p><h2 id="DataStreamingMechanism-UsingKubernetes">Using Kubernetes</h2><ol start="1"><li><p>Run MySQL, Clickhouse, Debezium (Kafka Connect), Kafka, and Risingwave with Kubernetes operators. For Kafka Connect and Kafka, you can use the Strimzi operator;</p></li><li><p>Create Debezium connector configuration in YAML. It is recommended to create one connection for many tables rather than one connection per table, as it requires much less resource;</p></li><li><p>Apply the configuration to Kubernetes;</p></li><li><p>Create Risingwave tables to read data from Kafka topics, transform them, and store them in another Kafka topics;</p></li><li><p>Create ClickHouse tables to capture data from Kafka topics. The ClickHouse data type must be compatible with the data stored in Kafka;</p></li><li><p>Create ClickHouse Sink Connector connectors to stream data from Kafka topics into Clickhouse Tables and apply them to Kubernetes;</p></li><li><p>Create a materialised view to process captured data in ClickHouse if needed;</p></li><li><p>Create ClickHouse tables to capture data from Kafka topics. The ClickHouse data type must be compatible with the data stored in Kafka.</p></li></ol><h1 id="DataStreamingMechanism-DataPipeline">Data Pipeline</h1><hr/><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image-20250619-043130.png" width="1280" loading="lazy" src="attachments/5840994486/5842141266.png?width=1280" data-image-src="attachments/5840994486/5842141266.png" data-height="1076" data-width="5964" data-unresolved-comment-count="0" data-linked-resource-id="5842141266" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image-20250619-043130.png" data-base-url="https://unicc.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5840994486" data-linked-resource-container-version="6" data-media-id="bdbca017-196d-4a05-a3db-e48299c81160" data-media-type="file"></span><h2 id="DataStreamingMechanism-DataSource(MySQL)">Data Source (MySQL)</h2><ul><li><p><strong>Source Database</strong>:<br/>A transactional MySQL database serves as the source system. Tables are monitored for changes using CDC.</p></li><li><p><strong>Change Data Capture (CDC)</strong>:<br/>Debezium is used to monitor and capture row-level changes (INSERT, UPDATE, DELETE) from MySQL in real time.</p></li><li><p><strong>Configuration</strong>:</p><ul><li><p>Debezium connector: <code>io.debezium.connector.mysql.MySqlConnector</code></p></li><li><p>Key configurations:</p><ul><li><p><code>database.hostname</code>, <code>database.include.list</code>, <code>table.include.list</code></p></li><li><p><code>snapshot.mode</code>: (e.g., <code>initial</code> or <code>when_needed</code>)</p></li></ul></li></ul></li></ul><h2 id="DataStreamingMechanism-DataExtraction(Kafka)">Data Extraction (Kafka)</h2><ul><li><p><strong>Topic Design</strong>:<br/>Partitioning strategy often relies on the table's primary key or unique identifier for balanced distribution.</p></li><li><p><strong>Message Format</strong>:<br/>Data is serialised in JSON format. A <strong>Schema Registry</strong> is used to manage schema evolution.</p></li><li><p><strong>Retention &amp; Replay</strong>:<br/>Kafka topics have configured retention settings (e.g., time-based or size-based). Consumer groups can manage reprocessing by resetting offsets, enabling historical replay and backfill.</p></li></ul><h2 id="DataStreamingMechanism-DataTransformation(RisingWave)">Data Transformation (RisingWave)</h2><p>After data enters Kafka, the pipeline checks whether transformation is needed:</p><ul><li><p>If <strong>no transformation</strong> is required:<br/>Kafka topics are <strong>streamed directly</strong> to ClickHouse for ingestion.</p></li><li><p>If <strong>transformation is needed</strong>:<br/>The Kafka topic is ingested into <strong>RisingWave</strong>, which acts as a real-time SQL stream processing system.</p></li><li><p><strong>Transformation Logic</strong>:<br/>RisingWave allows users to write <strong>SQL-based transformation queries</strong> over incoming Kafka topics. These queries can be implemented:</p><ul><li><p>Field renaming or mapping</p></li><li><p>Data enrichment (e.g., joins with reference data)</p></li><li><p>Business rules (e.g., currency conversion, aggregation)</p></li><li><p>Filtering or conditional routing</p></li></ul></li><li><p><strong>Config &amp; Workflows</strong>:<br/>Transformations are defined in RisingWave using SQL statements that create <strong>materialised views</strong>. These views can be published as new Kafka topics (transformed topics).</p></li><li><p><strong>Performance Considerations</strong>:<br/>RisingWave processes streams with low latency and can be tuned via:</p><ul><li><p>Batch window settings</p></li><li><p>Parallelism for stream operators</p></li><li><p>Backpressure and resource utilisation</p></li></ul></li></ul><h2 id="DataStreamingMechanism-DataWarehouse(ClickHouse)">Data Warehouse (ClickHouse)</h2><ul><li><p><strong>Destination DB</strong>:<br/>The final storage layer is ClickHouse, a high-performance OLAP database. Kafka topics (either raw or transformed) are ingested into specific ClickHouse tables, which are <strong>not a 1:1 copy</strong> of MySQL tables — they are optimised for analytical queries.</p></li><li><p><strong>Write Strategy</strong>:</p><ul><li><p>Direct Kafka Topic and Transformed Kafka Topic are stored on Clickhouse;</p></li><li><p>Table engine in ClickHouse using <code>ReplicatedReplacingMergeTree</code></p></li></ul></li></ul><h1 id="DataStreamingMechanism-PerformanceOverview">Performance Overview</h1><hr/><ul><li><p><strong>Performance Benchmark:</strong></p><ul><li><p>Sink Throughput Debezium (MySQL-&gt;Kafka): Rows per second and bytes per second inserted from MySQL to Kafka;</p></li><li><p>Sink Throughput Clickhouse Sink (Kafka-&gt;Clickhouse): Rows per second and bytes per second processed from Kafka to Clickhouse;</p></li><li><p>Read/Write Throughput via Risingwave: Rows per second processed on the sink pipeline via Risingwave.</p></li></ul></li><li><p><strong>Bottlenecks:</strong></p><ul><li><p>Storage Kafka during a one-time load;</p></li><li><p>Risingwave resource usage during one-time load due to many JOINs;</p></li><li><p>Need one-time loading of the whole database every time the Sink Connector configuration is modified;</p></li><li><p>Error memory limit while having many concurrent users accessing a heavily loaded dashboard.</p></li></ul></li><li><p><strong>Scaling Strategies:</strong></p><ul><li><p>Horizontal Pod Autoscale at Risingwave;</p></li><li><p>Vertical Scaling of Clickhouse &amp; Kafka Connect (inc. Debezium).</p></li></ul></li></ul><h1 id="DataStreamingMechanism-RevisionHistory">Revision History</h1><hr/><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p><strong>Internal Use Only. This content is not intended for publication in the live environment.</strong></p></div></div><div class="table-wrap"><table data-table-width="760" data-layout="center" data-local-id="6dbdffde-c8ab-4282-a1e9-dc4d6f0663e3" class="confluenceTable"><colgroup><col style="width: 140.0px;"/><col style="width: 350.0px;"/><col style="width: 152.0px;"/><col style="width: 117.0px;"/></colgroup><tbody><tr><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Date</strong></p></th><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Change description</strong></p></th><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Author</strong></p></th><th data-highlight-colour="#f0f1f2" class="confluenceTh"><p style="text-align: center;"><strong>Status</strong></p></th></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p><time datetime="2025-06-26" class="date-past">26 Jun 2025</time> </p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Proofread content.</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">Lead TW</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">Done</p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p><time datetime="2025-06-25" class="date-past">25 Jun 2025</time> </p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Done. Ready for review</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">TW</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">Done</p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p><time datetime="2025-06-19" class="date-past">19 Jun 2025</time> </p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Updated on some sections and all section is reviewed by Data Team except for Performance Overview</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">TW</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">Done</p></td></tr><tr><td data-highlight-colour="#ffffff" class="confluenceTd"><p><time datetime="2025-06-18" class="date-past">18 Jun 2025</time></p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p>Initial document.</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">TW</p></td><td data-highlight-colour="#ffffff" class="confluenceTd"><p style="text-align: center;">Done</p></td></tr></tbody></table></div>
+                    </div>
+
+                                        <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/5840994486/5842141266.png">image-20250619-043130.png</a> (image/png)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Dec 29, 2025 00:33</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

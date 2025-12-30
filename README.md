@@ -11,10 +11,15 @@ SMILE is a comprehensive logistics management platform developed jointly by the 
 ### Core Documentation
 
 - **[DPG Tasks Tracker](docs/dpg/tasks-tracker.md)** - Track immediate tasks, governance requirements, and evidence needed for DPG preparation and compliance
-- **[Deployment and Installation Guide](docs/deployment-guide.md)** - Comprehensive guide for deploying SMILE5 on AWS
-- **[Technical Overview Document](docs/technical-overview.md)** - Centralized technical documentation covering technologies, frameworks, and infrastructure
+  - [View as HTML](assets/html/dpg-tasks-tracker.html) (GitHub Pages)
 - **[Cloud Infrastructure](docs/cloud-infrastructure.md)** - Detailed architecture and setup of SMILE's cloud infrastructure on AWS
+  - [View as HTML](assets/html/cloud-infrastructure.html) (GitHub Pages)
 - **[Data Streaming Mechanism](docs/data-streaming.md)** - Documentation of SMILE's data streaming architecture
+  - [View as HTML](assets/html/data-streaming.html) (GitHub Pages)
+- **[Deployment and Installation Guide](docs/deployment-guide.md)** - Comprehensive guide for deploying SMILE5 on AWS
+  - [View as HTML](assets/html/deployment-guide.html) (GitHub Pages)
+- **[Technical Overview Document](docs/technical-overview.md)** - Centralized technical documentation covering technologies, frameworks, and infrastructure
+  - [View as HTML](assets/html/technical-overview.html) (GitHub Pages)
 
 ## Getting Started
 
