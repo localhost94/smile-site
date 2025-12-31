@@ -253,6 +253,11 @@
             });
         }
 
+        // Real-time data simulation
+        function getRandomValue(base, variance) {
+            return base + (Math.random() - 0.5) * variance;
+        }
+
         // Initialize charts when page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Start counter animations
@@ -260,7 +265,7 @@
 
             // Stock Status Donut Chart
             const stockStatusCtx = document.getElementById('stockStatusChart').getContext('2d');
-            new Chart(stockStatusCtx, {
+            const stockStatusChart = new Chart(stockStatusCtx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Normal', '< Min', '> Max', 'Habis'],
@@ -300,7 +305,7 @@
 
             // Material Bar Chart
             const materialCtx = document.getElementById('materialChart').getContext('2d');
-            new Chart(materialCtx, {
+            const materialChart = new Chart(materialCtx, {
                 type: 'bar',
                 data: {
                     labels: ['BCG @20 ds', 'IPV @5 ds', 'MR @10 ds', 'Polio @10 ds', 'Hep B @10 ds'],
@@ -346,7 +351,7 @@
 
             // Temperature Donut Chart
             const temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
-            new Chart(temperatureCtx, {
+            const temperatureChart = new Chart(temperatureCtx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Normal', 'Rendah', 'Tinggi', 'Tidak Diketahui'],
@@ -383,6 +388,55 @@
                     }
                 }
             });
+
+            // Real-time updates
+            setInterval(() => {
+                // Update Stock Status Chart
+                const stockData = stockStatusChart.data.datasets[0].data;
+                stockStatusChart.data.datasets[0].data = [
+                    Math.max(10, Math.min(70, getRandomValue(stockData[0], 5))),
+                    Math.max(5, Math.min(30, getRandomValue(stockData[1], 3))),
+                    Math.max(10, Math.min(40, getRandomValue(stockData[2], 4))),
+                    Math.max(5, Math.min(20, getRandomValue(stockData[3], 2)))
+                ];
+                stockStatusChart.update('none');
+
+                // Update Material Chart
+                const materialData = materialChart.data.datasets[0].data;
+                materialChart.data.datasets[0].data = materialData.map(value => 
+                    Math.max(20, Math.min(95, getRandomValue(value, 8)))
+                );
+                materialChart.update('none');
+
+                // Update Temperature Chart
+                const tempData = temperatureChart.data.datasets[0].data;
+                temperatureChart.data.datasets[0].data = [
+                    Math.max(30, Math.min(80, getRandomValue(tempData[0], 6))),
+                    Math.max(5, Math.min(25, getRandomValue(tempData[1], 3))),
+                    Math.max(5, Math.min(20, getRandomValue(tempData[2], 2))),
+                    Math.max(5, Math.min(25, getRandomValue(tempData[3], 3)))
+                ];
+                temperatureChart.update('none');
+
+                // Update metrics with small variations
+                document.querySelectorAll('.metric-value').forEach((counter, index) => {
+                    const baseValue = parseInt(counter.getAttribute('data-target'));
+                    const variation = Math.floor((Math.random() - 0.5) * baseValue * 0.02);
+                    const newValue = baseValue + variation;
+                    counter.innerText = newValue.toLocaleString();
+                });
+
+            }, 3000); // Update every 3 seconds
+
+            // Add pulsing effect to charts
+            setInterval(() => {
+                document.querySelectorAll('.chart-container').forEach(container => {
+                    container.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        container.style.transform = 'scale(1)';
+                    }, 300);
+                });
+            }, 5000);
         });
     </script>
 </body>
