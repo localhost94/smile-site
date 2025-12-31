@@ -64,7 +64,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-total">Total Vaccine Distribution</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="2000000">0</div>
+                            <div class="metric-value" data-target="750000000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">+2.5%</span>
@@ -79,7 +79,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-damaged">Damaged Vaccines</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="50000">0</div>
+                            <div class="metric-value" data-target="50000000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">-1.2%</span>
@@ -94,7 +94,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-broken">Broken Vaccines</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="10000">0</div>
+                            <div class="metric-value" data-target="100000000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">-0.5%</span>
@@ -109,7 +109,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-expired">Expired Vaccines</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="20000">0</div>
+                            <div class="metric-value" data-target="20000000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">-3.1%</span>
@@ -397,7 +397,7 @@
                 data: {
                     labels: ['Normal', '< Min', '> Max', 'Habis'],
                     datasets: [{
-                        data: [45, 20, 25, 10],
+                        data: [60, 20, 15, 5],
                         backgroundColor: [
                             '#10b981',
                             '#f59e0b',
@@ -456,25 +456,25 @@
             const distributionChart = new Chart(distributionCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Gudang Vaksin', 'Dinkes Prov', 'Dinkes Kako', 'Puskesmas'],
+                    labels: ['Kemenkes RI', 'Gudang Vaksin', 'Dinkes Prov', 'Dinkes Kako', 'Puskesmas'],
                     datasets: [
                         {
                             label: 'Total Penerimaan',
-                            data: [480220, 577626579, 577939799, 561694989],
+                            data: [724747372, 750000000, 700000000, 650000000, 600000000],
                             backgroundColor: '#3b82f6',
                             borderRadius: 5,
                             barPercentage: 0.7
                         },
                         {
                             label: 'Total Distribusi',
-                            data: [1127530, 586374420, 554862497, 8860554],
+                            data: [750000000, 700000000, 650000000, 600000000, 0],
                             backgroundColor: '#10b981',
                             borderRadius: 5,
                             barPercentage: 0.7
                         },
                         {
                             label: 'Total Konsumsi',
-                            data: [0, 512082, 10790124, 529013032],
+                            data: [0, 0, 50000000, 100000000, 550000000],
                             backgroundColor: '#f59e0b',
                             borderRadius: 5,
                             barPercentage: 0.7
@@ -548,9 +548,9 @@
             const temperatureChart = new Chart(temperatureCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Normal', 'Rendah', 'Tinggi', 'Tidak Diketahui'],
+                    labels: ['Normal (2-8°C)', 'Rendah (<2°C)', 'Tinggi (>8°C)', 'Tidak Diketahui'],
                     datasets: [{
-                        data: [60, 15, 10, 15],
+                        data: [75, 10, 5, 10],
                         backgroundColor: [
                             '#10b981',
                             '#3b82f6',
