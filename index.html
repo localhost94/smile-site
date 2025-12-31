@@ -335,7 +335,7 @@
                 data: {
                     labels: ['Normal', '< Min', '> Max', 'Habis'],
                     datasets: [{
-                        data: [60, 20, 15, 5],
+                        data: [85, 8, 5, 2],
                         backgroundColor: [
                             '#10b981',
                             '#f59e0b',
@@ -556,10 +556,10 @@
                 // Update Stock Status Chart - show improvement
                 const stockData = stockStatusChart.data.datasets[0].data;
                 const newStockData = [
-                    Math.max(50, Math.min(75, getRandomValue(stockData[0], 3))), // Normal increases
-                    Math.max(5, Math.min(15, getRandomValue(stockData[1], 2))), // < Min decreases
-                    Math.max(15, Math.min(25, getRandomValue(stockData[2], 2))), // > Max decreases
-                    Math.max(5, Math.min(10, getRandomValue(stockData[3], 1)))  // Habis decreases
+                    Math.max(85, Math.min(95, getRandomValue(stockData[0], 3))), // Normal increases
+                    Math.max(2, Math.min(8, getRandomValue(stockData[1], 1))), // < Min decreases
+                    Math.max(2, Math.min(8, getRandomValue(stockData[2], 1))), // > Max decreases
+                    Math.max(1, Math.min(5, getRandomValue(stockData[3], 0.5)))  // Habis decreases
                 ];
                 
                 // Animate the transition
@@ -590,22 +590,23 @@
                 // Update metrics with animated counting and positive trend calculation
                 document.querySelectorAll('.metric-value').forEach((counter, index) => {
                     const baseValue = parseInt(counter.getAttribute('data-target'));
+                    const currentValue = parseInt(counter.innerText.replace(/,/g, ''));
                     
                     // Show positive trends for most metrics
                     let variation;
                     if (index === 0) { // Total distribution - always increase
                         variation = Math.floor(Math.random() * baseValue * 0.01);
                     } else if (index === 1) { // Damaged - decrease
-                        variation = -Math.floor(Math.random() * baseValue * 0.005);
+                        variation = -Math.floor(Math.random() * Math.min(baseValue * 0.005, currentValue * 0.1));
                     } else if (index === 2) { // Broken - slight decrease
-                        variation = -Math.floor(Math.random() * baseValue * 0.002);
+                        variation = -Math.floor(Math.random() * Math.min(baseValue * 0.002, currentValue * 0.1));
                     } else { // Expired - decrease
-                        variation = -Math.floor(Math.random() * baseValue * 0.008);
+                        variation = -Math.floor(Math.random() * Math.min(baseValue * 0.008, currentValue * 0.1));
                     }
                     
-                    const newValue = baseValue + variation;
+                    const newValue = Math.max(0, currentValue + variation);
                     
-                    // Calculate trend
+                    // Calculate trend based on actual change
                     const previousValue = previousValues[index];
                     const change = newValue - previousValue;
                     const changePercent = Math.abs((change / previousValue) * 100).toFixed(1);
@@ -638,7 +639,7 @@
                     }, 10);
                     
                     // Animate number change
-                    animateValue(counter, parseInt(counter.innerText.replace(/,/g, '')), newValue, 500);
+                    animateValue(counter, currentValue, newValue, 500);
                     
                     // Store new value for next comparison
                     previousValues[index] = newValue;

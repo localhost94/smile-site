@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Last Mile Distribution by Material Type</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .chart-wrapper {
+            flex: 1;
+            position: relative;
+            height: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        h3 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Monthly Last Mile Distribution by Material Type (Unit)</h2>
+        
+        <div class="chart-container">
+            <div class="chart-wrapper">
+                <h3>Jan 25 - Dec 25</h3>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h3>Jan 25 - Medicine</h3>
+                <canvas id="medicineChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the monthly stacked bar chart
+        const monthlyData = {
+            labels: ['Jan 25', 'Feb 25', 'Mar 25', 'Apr 25', 'May 25', 'Jun 25', 
+                     'Jul 25', 'Aug 25', 'Sep 25', 'Oct 25', 'Nov 25', 'Dec 25'],
+            datasets: [
+                {
+                    label: 'Vaccine',
+                    data: [4500000, 4800000, 5200000, 4900000, 5300000, 5600000,
+                           5800000, 5500000, 5400000, 5200000, 5000000, 4800000],
+                    backgroundColor: '#4CAF50',
+                    borderColor: '#45a049',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Medicine',
+                    data: [3500000, 3700000, 3900000, 3800000, 4000000, 4200000,
+                           4300000, 4100000, 4000000, 3900000, 3700000, 3600000],
+                    backgroundColor: '#2196F3',
+                    borderColor: '#1976D2',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Consumable',
+                    data: [2000000, 2100000, 2200000, 2150000, 2250000, 2350000,
+                           2400000, 2300000, 2250000, 2200000, 2100000, 2050000],
+                    backgroundColor: '#FF9800',
+                    borderColor: '#F57C00',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // Data for the medicine horizontal bar chart
+        const medicineData = {
+            labels: [
+                'VIROCHECK HIV 1/2 (RV-H25A, 25 Test)',
+                'TREPOCHECK Syphilis (RB-TS25, 25 Test)',
+                'INDEC HIV 1/2 & Syphilis Combo (ID-HS25, 25 Test)',
+                'D3TEKS1 HIV 1/2 Antibody Rapid Test Kit',
+                'D3TEKS1 HIV & Syphilis Combo Antibody Rapid Test',
+                'Tenofovir Disoproxil Fumarate 300 mg / Emtricitabine 200 mg',
+                'Tenofovir Disoproxil Fumarate 300 mg / Lamivudine 300 mg',
+                'Efavirenz 600 mg / Lamivudine 300 mg / Tenofovir 300 mg',
+                'Benzathine Benzilpenicillin 2.400.000 IU',
+                'FastClear O HIV 1/2 Ab 3-Line (FCO-HIV-3)'
+            ],
+            datasets: [{
+                label: 'Units',
+                data: [354, 338, 234, 223, 221, 174, 163, 151, 131, 128],
+                backgroundColor: '#2196F3',
+                borderColor: '#1976D2',
+                borderWidth: 1
+            }]
+        };
+
+        // Create monthly stacked bar chart
+        const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+        const monthlyChart = new Chart(monthlyCtx, {
+            type: 'bar',
+            data: monthlyData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 25000000,
+                        ticks: {
+                            callback: function(value) {
+                                return (value / 1000000).toFixed(0) + 'M';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += (context.raw / 1000000).toFixed(2) + 'M units';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Create medicine horizontal bar chart
+        const medicineCtx = document.getElementById('medicineChart').getContext('2d');
+        const medicineChart = new Chart(medicineCtx, {
+            type: 'bar',
+            data: medicineData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 400,
+                        ticks: {
+                            stepSize: 50
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Units: ' + context.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

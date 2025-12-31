@@ -547,7 +547,7 @@ body {
     }
     
     .metrics-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     
@@ -562,6 +562,13 @@ body {
     .charts-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 }
 
@@ -605,24 +612,15 @@ body {
     right: -50px;
     top: 50%;
     transform: translateY(-50%);
-    background: #ef4444;
+    background: #10b981;
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 0.75rem;
     font-weight: 600;
-    animation: pulse 2s infinite, livePulse 1s ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+    animation: pulse 2s infinite;
 }
 
-@keyframes livePulse {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(239, 68, 68, 0.8);
-    }
-}
 
 /* Real-time indicator */
 .realtime-indicator {
@@ -638,7 +636,7 @@ body {
 /* Metrics Grid */
 .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin-bottom: 3rem;
 }
@@ -654,6 +652,7 @@ body {
     border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
+    aspect-ratio: 2/1;
 }
 
 .metric-card::before {
