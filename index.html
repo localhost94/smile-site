@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMILE Platform Documentation</title>
+    <meta name="description" content="Documentation for the SMILE Digital Public Good (DPG) platform">
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +20,33 @@
                 <span>SMILE Platform</span>
             </a>
             <nav class="nav-links">
-                <a href="#docs" class="nav-link">Documentation</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#docs" class="nav-link" data-translate="nav-documentation">Documentation</a>
+                <a href="#about" class="nav-link" data-translate="nav-about">About</a>
+                <a href="#contact" class="nav-link" data-translate="nav-contact">Contact</a>
+                <!-- Language Switcher -->
+                <div class="language-switcher">
+                    <button class="language-switcher-btn" id="languageToggle">
+                        <svg class="language-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span class="current-lang" id="currentLang">EN</span>
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <a href="#" class="language-option" data-lang="en">
+                            <span class="flag">🇺🇸</span>
+                            <span class="lang-name">English</span>
+                        </a>
+                        <a href="#" class="language-option" data-lang="id">
+                            <span class="flag">🇮🇩</span>
+                            <span class="lang-name">Bahasa Indonesia</span>
+                        </a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -29,14 +54,14 @@
     <main class="container">
         <!-- Executive Dashboard Section -->
         <section class="executive-dashboard">
-            <h2 class="dashboard-title">Executive Dashboard</h2>
+            <h2 class="dashboard-title" data-translate="dashboard-title">Executive Dashboard</h2>
             
             <!-- Vaccine Metrics -->
             <div class="metrics-grid">
                 <div class="metric-card">
                     <div class="metric-icon total"></div>
                     <div class="metric-content">
-                        <h3>Total Penyebaran Vaksin</h3>
+                        <h3 data-translate="metric-total">Total Vaccine Distribution</h3>
                         <div class="metric-wrapper">
                             <div class="metric-value" data-target="2000000">0</div>
                             <div class="metric-trend trend-up">
@@ -51,7 +76,7 @@
                 <div class="metric-card">
                     <div class="metric-icon damaged"></div>
                     <div class="metric-content">
-                        <h3>Vaksin Rusak</h3>
+                        <h3 data-translate="metric-damaged">Damaged Vaccines</h3>
                         <div class="metric-wrapper">
                             <div class="metric-value" data-target="50000">0</div>
                             <div class="metric-trend trend-up">
@@ -66,7 +91,7 @@
                 <div class="metric-card">
                     <div class="metric-icon broken"></div>
                     <div class="metric-content">
-                        <h3>Vaksin Pecah</h3>
+                        <h3 data-translate="metric-broken">Broken Vaccines</h3>
                         <div class="metric-wrapper">
                             <div class="metric-value" data-target="10000">0</div>
                             <div class="metric-trend trend-up">
@@ -81,7 +106,7 @@
                 <div class="metric-card">
                     <div class="metric-icon expired"></div>
                     <div class="metric-content">
-                        <h3>Vaksin Kedaluwarsa</h3>
+                        <h3 data-translate="metric-expired">Expired Vaccines</h3>
                         <div class="metric-wrapper">
                             <div class="metric-value" data-target="20000">0</div>
                             <div class="metric-trend trend-up">
@@ -97,17 +122,17 @@
             <!-- Charts Grid -->
             <div class="charts-grid">
                 <div class="chart-container">
-                    <h3>Status Ketersediaan Stok</h3>
+                    <h3 data-translate="chart-stock">Stock Availability Status</h3>
                     <canvas id="stockStatusChart"></canvas>
                 </div>
                 
                 <div class="chart-container">
-                    <h3>Distribusi Vaksin per Tingkat</h3>
+                    <h3 data-translate="chart-distribution">Vaccine Distribution by Level</h3>
                     <canvas id="distributionChart"></canvas>
                 </div>
                 
                 <div class="chart-container">
-                    <h3>Status Suhu Kulkas Vaksin</h3>
+                    <h3 data-translate="chart-temperature">Vaccine Refrigerator Temperature Status</h3>
                     <canvas id="temperatureChart"></canvas>
                 </div>
             </div>
@@ -115,32 +140,32 @@
             <!-- Additional Charts Row -->
             <div class="charts-grid">
                 <div class="chart-container full-width">
-                    <h3>Alur Distribusi Vaksin Nasional</h3>
+                    <h3 data-translate="chart-flow">National Vaccine Distribution Flow</h3>
                     <canvas id="flowChart"></canvas>
                 </div>
             </div>
         </section>
 
         <section class="hero">
-            <h1>SMILE Platform Documentation</h1>
-            <p class="hero-subtitle">
-                SMILE (Sistem Monitoring Imunisasi dan Logistik secara Elektronik) adalah sistem 
-                yang digunakan untuk memantau dan mengelola distribusi vaksin dan obat-obatan secara efektif. 
-                Sistem ini telah terbukti sangat penting, terutama selama pandemi COVID-19, 
-                di mana SMILE berhasil mendistribusikan ratusan juta dosis vaksin ke seluruh Indonesia.
+            <h1 data-translate="hero-title">SMILE Platform Documentation</h1>
+            <p class="hero-subtitle" data-translate="hero-subtitle">
+                SMILE (Smart Integrated Logistics Engine) is a comprehensive logistics management platform 
+                developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia. Since its inception 
+                in 2018, SMILE has evolved into a robust Digital Public Good that addresses multiple Sustainable 
+                Development Goals (SDGs).
             </p>
             <div class="hero-stats">
                 <div class="stat">
                     <div class="stat-number">5</div>
-                    <div class="stat-label">Core Documents</div>
+                    <div class="stat-label" data-translate="stat-core-docs">Core Documents</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">2018</div>
-                    <div class="stat-label">Since</div>
+                    <div class="stat-label" data-translate="stat-since">Since</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">3</div>
-                    <div class="stat-label">SDGs Supported</div>
+                    <div class="stat-label" data-translate="stat-sdgs">SDGs Supported</div>
                 </div>
             </div>
         </section>
@@ -150,15 +175,15 @@
                 <div class="doc-card">
                     <div class="doc-card-header">
                         <div class="doc-icon">📋</div>
-                        <h3>DPG Tasks Tracker <span class="badge badge-dpg">DPG</span></h3>
+                        <h3 data-translate="doc-dpg-title">DPG Tasks Tracker <span class="badge badge-dpg">DPG</span></h3>
                     </div>
-                    <p>Track immediate tasks, governance requirements, and evidence needed for DPG preparation and compliance.</p>
+                    <p data-translate="doc-dpg-desc">Track immediate tasks, governance requirements, and evidence needed for DPG preparation and compliance.</p>
                     <div class="doc-links">
                         <a href="docs/dpg/tasks-tracker.md" class="doc-link doc-link-secondary">
-                            <span>📄</span> View Source
+                            <span>📄</span> <span data-translate="view-source">View Source</span>
                         </a>
                         <a href="assets/html/dpg-tasks-tracker.html" class="doc-link doc-link-primary">
-                            <span>🌐</span> View HTML
+                            <span>🌐</span> <span data-translate="view-html">View HTML</span>
                         </a>
                     </div>
                 </div>
@@ -166,15 +191,15 @@
                 <div class="doc-card">
                     <div class="doc-card-header">
                         <div class="doc-icon">🚀</div>
-                        <h3>Deployment Guide</h3>
+                        <h3 data-translate="doc-deploy-title">Deployment Guide</h3>
                     </div>
-                    <p>Comprehensive guide for deploying SMILE5 on AWS, including prerequisites, configuration, and troubleshooting.</p>
+                    <p data-translate="doc-deploy-desc">Comprehensive guide for deploying SMILE5 on AWS, including prerequisites, configuration, and troubleshooting.</p>
                     <div class="doc-links">
                         <a href="docs/deployment-guide.md" class="doc-link doc-link-secondary">
-                            <span>📄</span> View Source
+                            <span>📄</span> <span data-translate="view-source">View Source</span>
                         </a>
                         <a href="assets/html/deployment-guide.html" class="doc-link doc-link-primary">
-                            <span>🌐</span> View HTML
+                            <span>🌐</span> <span data-translate="view-html">View HTML</span>
                         </a>
                     </div>
                 </div>
@@ -182,15 +207,15 @@
                 <div class="doc-card">
                     <div class="doc-card-header">
                         <div class="doc-icon">📊</div>
-                        <h3>Technical Overview</h3>
+                        <h3 data-translate="doc-tech-title">Technical Overview</h3>
                     </div>
-                    <p>Centralized technical documentation covering technologies, frameworks, data pipeline, and infrastructure.</p>
+                    <p data-translate="doc-tech-desc">Centralized technical documentation covering technologies, frameworks, data pipeline, and infrastructure.</p>
                     <div class="doc-links">
                         <a href="docs/technical-overview.md" class="doc-link doc-link-secondary">
-                            <span>📄</span> View Source
+                            <span>📄</span> <span data-translate="view-source">View Source</span>
                         </a>
                         <a href="assets/html/technical-overview.html" class="doc-link doc-link-primary">
-                            <span>🌐</span> View HTML
+                            <span>🌐</span> <span data-translate="view-html">View HTML</span>
                         </a>
                     </div>
                 </div>
@@ -198,15 +223,15 @@
                 <div class="doc-card">
                     <div class="doc-card-header">
                         <div class="doc-icon">☁️</div>
-                        <h3>Cloud Infrastructure</h3>
+                        <h3 data-translate="doc-cloud-title">Cloud Infrastructure</h3>
                     </div>
-                    <p>Detailed architecture and setup of SMILE's cloud infrastructure on AWS, including networking and security.</p>
+                    <p data-translate="doc-cloud-desc">Detailed architecture and setup of SMILE's cloud infrastructure on AWS, including networking and security.</p>
                     <div class="doc-links">
                         <a href="docs/cloud-infrastructure.md" class="doc-link doc-link-secondary">
-                            <span>📄</span> View Source
+                            <span>📄</span> <span data-translate="view-source">View Source</span>
                         </a>
                         <a href="assets/html/cloud-infrastructure.html" class="doc-link doc-link-primary">
-                            <span>🌐</span> View HTML
+                            <span>🌐</span> <span data-translate="view-html">View HTML</span>
                         </a>
                     </div>
                 </div>
@@ -214,15 +239,15 @@
                 <div class="doc-card">
                     <div class="doc-card-header">
                         <div class="doc-icon">🔄</div>
-                        <h3>Data Streaming</h3>
+                        <h3 data-translate="doc-streaming-title">Data Streaming</h3>
                     </div>
-                    <p>Documentation of SMILE's data streaming architecture, including real-time data processing and integration.</p>
+                    <p data-translate="doc-streaming-desc">Documentation of SMILE's data streaming architecture, including real-time data processing and integration.</p>
                     <div class="doc-links">
                         <a href="docs/data-streaming.md" class="doc-link doc-link-secondary">
-                            <span>📄</span> View Source
+                            <span>📄</span> <span data-translate="view-source">View Source</span>
                         </a>
                         <a href="assets/html/data-streaming.html" class="doc-link doc-link-primary">
-                            <span>🌐</span> View HTML
+                            <span>🌐</span> <span data-translate="view-html">View HTML</span>
                         </a>
                     </div>
                 </div>
@@ -230,14 +255,14 @@
         </section>
 
         <section id="about" class="about-section">
-            <h2>About SMILE</h2>
-            <p>
+            <h2 data-translate="about-title">About SMILE</h2>
+            <p data-translate="about-desc-1">
                 SMILE (Smart Integrated Logistics Engine) is a comprehensive logistics management platform 
                 developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia. Since its inception 
                 in 2018, SMILE has evolved into a robust Digital Public Good that addresses multiple Sustainable 
                 Development Goals (SDGs).
             </p>
-            <p>
+            <p data-translate="about-desc-2">
                 The platform has been successfully deployed across multiple regions, improving healthcare supply 
                 chain management and ensuring equitable distribution of medical resources to communities in need.
             </p>
@@ -252,16 +277,17 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-links">
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Use</a>
-                <a href="#" class="footer-link">Support</a>
+                <a href="#" class="footer-link" data-translate="footer-privacy">Privacy Policy</a>
+                <a href="#" class="footer-link" data-translate="footer-terms">Terms of Use</a>
+                <a href="#" class="footer-link" data-translate="footer-support">Support</a>
             </div>
-            <div class="footer-text">
+            <div class="footer-text" data-translate="footer-copyright">
                 © 2024 SMILE Platform. A Digital Public Good initiative.
             </div>
         </div>
     </footer>
 
+    <script src="assets/js/language-switcher.js"></script>
     <script>
         // Animate number counters
         function animateCounters() {

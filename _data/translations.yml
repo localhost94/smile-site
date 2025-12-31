@@ -1,0 +1,101 @@
+en:
+  site:
+    title: "SMILE Platform Documentation"
+    description: "Documentation for the SMILE Digital Public Good (DPG) platform"
+  nav:
+    home: "Home"
+    documentation: "Documentation"
+    about: "About"
+    contact: "Contact"
+  hero:
+    title: "SMILE Platform Documentation"
+    subtitle: "SMILE (Smart Integrated Logistics Engine) is a comprehensive logistics management platform developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia. Since its inception in 2018, SMILE has evolved into a robust Digital Public Good that addresses multiple Sustainable Development Goals (SDGs)."
+    stats:
+      core_documents: "Core Documents"
+      since: "Since"
+      sdgs_supported: "SDGs Supported"
+  dashboard:
+    title: "Executive Dashboard"
+    metrics:
+      total_vaccine: "Total Vaccine Distribution"
+      damaged: "Damaged Vaccines"
+      broken: "Broken Vaccines"
+      expired: "Expired Vaccines"
+    charts:
+      stock_status: "Stock Availability Status"
+      distribution_by_level: "Vaccine Distribution by Level"
+      temperature_status: "Vaccine Refrigerator Temperature Status"
+      national_flow: "National Vaccine Distribution Flow"
+  about:
+    title: "About SMILE"
+    description1: "SMILE (Smart Integrated Logistics Engine) is a comprehensive logistics management platform developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia. Since its inception in 2018, SMILE has evolved into a robust Digital Public Good that addresses multiple Sustainable Development Goals (SDGs)."
+    description2: "The platform has been successfully deployed across multiple regions, improving healthcare supply chain management and ensuring equitable distribution of medical resources to communities in need."
+  footer:
+    privacy: "Privacy Policy"
+    terms: "Terms of Use"
+    support: "Support"
+    copyright: "© 2024 SMILE Platform. A Digital Public Good initiative."
+  docs:
+    dpg_tracker: "DPG Tasks Tracker"
+    dpg_description: "Track immediate tasks, governance requirements, and evidence needed for DPG preparation and compliance."
+    deployment_guide: "Deployment Guide"
+    deployment_description: "Comprehensive guide for deploying SMILE5 on AWS, including prerequisites, configuration, and troubleshooting."
+    technical_overview: "Technical Overview"
+    technical_description: "Centralized technical documentation covering technologies, frameworks, data pipeline, and infrastructure."
+    cloud_infrastructure: "Cloud Infrastructure"
+    cloud_description: "Detailed architecture and setup of SMILE's cloud infrastructure on AWS, including networking and security."
+    data_streaming: "Data Streaming"
+    streaming_description: "Documentation of SMILE's data streaming architecture, including real-time data processing and integration."
+    view_source: "View Source"
+    view_html: "View HTML"
+
+id:
+  site:
+    title: "Dokumentasi Platform SMILE"
+    description: "Dokumentasi untuk platform Digital Public Good (DPG) SMILE"
+  nav:
+    home: "Beranda"
+    documentation: "Dokumentasi"
+    about: "Tentang"
+    contact: "Kontak"
+  hero:
+    title: "Dokumentasi Platform SMILE"
+    subtitle: "SMILE (Sistem Monitoring Imunisasi dan Logistik secara Elektronik) adalah sistem yang digunakan untuk memantau dan mengelola distribusi vaksin dan obat-obatan secara efektif. Sistem ini telah terbukti sangat penting, terutama selama pandemi COVID-19, di mana SMILE berhasil mendistribusikan ratusan juta dosis vaksin ke seluruh Indonesia."
+    stats:
+      core_documents: "Dokumen Inti"
+      since: "Sejak"
+      sdgs_supported: "SDG Didukung"
+  dashboard:
+    title: "Dashboard Eksekutif"
+    metrics:
+      total_vaccine: "Total Penyebaran Vaksin"
+      damaged: "Vaksin Rusak"
+      broken: "Vaksin Pecah"
+      expired: "Vaksin Kedaluwarsa"
+    charts:
+      stock_status: "Status Ketersediaan Stok"
+      distribution_by_level: "Distribusi Vaksin per Tingkat"
+      temperature_status: "Status Suhu Kulkas Vaksin"
+      national_flow: "Alur Distribusi Vaksin Nasional"
+  about:
+    title: "Tentang SMILE"
+    description1: "SMILE (Smart Integrated Logistics Engine) adalah platform manajemen logistik komprehensif yang dikembangkan bersama oleh Kementerian Kesehatan Indonesia dan UNDP Indonesia. Sejak awal berdiri pada tahun 2018, SMILE telah berkembang menjadi Digital Public Good yang kuat yang mengatasi beberapa Tujuan Pembangunan Berkelanjutan (SDGs)."
+    description2: "Platform ini telah berhasil diterapkan di berbagai wilayah, meningkatkan manajemen rantai pasokan layanan kesehatan dan memastikan distribusi sumber daya medis yang adil kepada komunitas yang membutuhkan."
+  footer:
+    privacy: "Kebijakan Privasi"
+    terms: "Ketentuan Penggunaan"
+    support: "Dukungan"
+    copyright: "© 2024 Platform SMILE. Inisiatif Digital Public Good."
+  docs:
+    dpg_tracker: "Pelacak Tugas DPG"
+    dpg_description: "Lacak tugas langsung, persyaratan tata kelola, dan bukti yang diperlukan untuk persiapan dan kepatuhan DPG."
+    deployment_guide: "Panduan Deploy"
+    deployment_description: "Panduan komprehensif untuk deploying SMILE5 di AWS, termasuk prasyarat, konfigurasi, dan pemecahan masalah."
+    technical_overview: "Ikhtisar Teknis"
+    technical_description: "Dokumentasi teknis terpusat yang mencakup teknologi, kerangka kerja, alur data, dan infrastruktur."
+    cloud_infrastructure: "Infrastruktur Cloud"
+    cloud_description: "Arsitektur dan penyiapan terperinci infrastruktur cloud SMILE di AWS, termasuk jaringan dan keamanan."
+    data_streaming: "Streaming Data"
+    streaming_description: "Dokumentasi arsitektur streaming data SMILE, termasuk pemrosesan dan integrasi data real-time."
+    view_source: "Lihat Sumber"
+    view_html: "Lihat HTML"

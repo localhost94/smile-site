@@ -3,6 +3,9 @@ title: SMILE Platform Documentation
 description: Documentation for the SMILE Digital Public Good (DPG) platform
 baseurl: /smile-platform-docs
 url: https://yourusername.github.io
+languages: ["en", "id"]
+default_lang: "en"
+exclude_from_localization: ["assets", "javascript", "images", "css"]
 
 # Navigation
 navigation:
