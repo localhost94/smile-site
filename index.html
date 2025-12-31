@@ -39,8 +39,8 @@
                         <h3>Total Penyebaran Vaksin</h3>
                         <div class="metric-wrapper">
                             <div class="metric-value" data-target="2000000">0</div>
-                            <div class="metric-trend">
-                                <span class="trend-arrow"></span>
+                            <div class="metric-trend trend-up">
+                                <span class="trend-arrow up"></span>
                                 <span class="trend-value">+2.5%</span>
                             </div>
                         </div>
@@ -53,13 +53,13 @@
                     <div class="metric-content">
                         <h3>Vaksin Rusak</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="1000000">0</div>
-                            <div class="metric-trend trend-down">
-                                <span class="trend-arrow down"></span>
+                            <div class="metric-value" data-target="50000">0</div>
+                            <div class="metric-trend trend-up">
+                                <span class="trend-arrow up"></span>
                                 <span class="trend-value">-1.2%</span>
                             </div>
                         </div>
-                        <div class="metric-percentage">50%</div>
+                        <div class="metric-percentage">2.5%</div>
                     </div>
                 </div>
                 
@@ -68,13 +68,13 @@
                     <div class="metric-content">
                         <h3>Vaksin Pecah</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="200000">0</div>
+                            <div class="metric-value" data-target="10000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
-                                <span class="trend-value">+0.5%</span>
+                                <span class="trend-value">-0.5%</span>
                             </div>
                         </div>
-                        <div class="metric-percentage">10%</div>
+                        <div class="metric-percentage">0.5%</div>
                     </div>
                 </div>
                 
@@ -83,13 +83,13 @@
                     <div class="metric-content">
                         <h3>Vaksin Kedaluwarsa</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="800000">0</div>
-                            <div class="metric-trend trend-down">
-                                <span class="trend-arrow down"></span>
+                            <div class="metric-value" data-target="20000">0</div>
+                            <div class="metric-trend trend-up">
+                                <span class="trend-arrow up"></span>
                                 <span class="trend-value">-3.1%</span>
                             </div>
                         </div>
-                        <div class="metric-percentage">40%</div>
+                        <div class="metric-percentage">1%</div>
                     </div>
                 </div>
             </div>
@@ -116,8 +116,10 @@
         <section class="hero">
             <h1>SMILE Platform Documentation</h1>
             <p class="hero-subtitle">
-                Comprehensive documentation for the SMILE Digital Public Good (DPG) project, 
-                including technical guides, deployment instructions, and infrastructure details.
+                SMILE (Sistem Monitoring Imunisasi dan Logistik secara Elektronik) adalah sistem 
+                yang digunakan untuk memantau dan mengelola distribusi vaksin dan obat-obatan secara efektif. 
+                Sistem ini telah terbukti sangat penting, terutama selama pandemi COVID-19, 
+                di mana SMILE berhasil mendistribusikan ratusan juta dosis vaksin ke seluruh Indonesia.
             </p>
             <div class="hero-stats">
                 <div class="stat">
@@ -475,7 +477,7 @@
             });
 
             // Store previous values for trend calculation
-            let previousValues = [2000000, 1000000, 200000, 800000];
+            let previousValues = [2000000, 50000, 10000, 20000];
 
             // Real-time updates
             setInterval(() => {
@@ -484,74 +486,83 @@
                     counter.classList.add('updating');
                 });
 
-                // Update Stock Status Chart
+                // Update Stock Status Chart - show improvement
                 const stockData = stockStatusChart.data.datasets[0].data;
                 const newStockData = [
-                    Math.max(10, Math.min(70, getRandomValue(stockData[0], 5))),
-                    Math.max(5, Math.min(30, getRandomValue(stockData[1], 3))),
-                    Math.max(10, Math.min(40, getRandomValue(stockData[2], 4))),
-                    Math.max(5, Math.min(20, getRandomValue(stockData[3], 2)))
+                    Math.max(50, Math.min(75, getRandomValue(stockData[0], 3))), // Normal increases
+                    Math.max(5, Math.min(15, getRandomValue(stockData[1], 2))), // < Min decreases
+                    Math.max(15, Math.min(25, getRandomValue(stockData[2], 2))), // > Max decreases
+                    Math.max(5, Math.min(10, getRandomValue(stockData[3], 1)))  // Habis decreases
                 ];
                 
                 // Animate the transition
                 stockStatusChart.data.datasets[0].data = newStockData;
                 stockStatusChart.update('active');
 
-                // Update Material Chart with staggered animation
+                // Update Material Chart - show improvement (lower is better for "Habis")
                 const materialData = materialChart.data.datasets[0].data;
                 const newMaterialData = materialData.map((value, index) => {
                     setTimeout(() => {
-                        materialChart.data.datasets[0].data[index] = Math.max(20, Math.min(95, getRandomValue(value, 8)));
+                        // Show decreasing trend (improvement)
+                        const newValue = Math.max(20, value - Math.random() * 3);
+                        materialChart.data.datasets[0].data[index] = newValue;
                         materialChart.update('active');
                     }, index * 100);
-                    return Math.max(20, Math.min(95, getRandomValue(value, 8)));
+                    return Math.max(20, value - Math.random() * 3);
                 });
 
-                // Update Temperature Chart
+                // Update Temperature Chart - show improvement
                 const tempData = temperatureChart.data.datasets[0].data;
                 temperatureChart.data.datasets[0].data = [
-                    Math.max(30, Math.min(80, getRandomValue(tempData[0], 6))),
-                    Math.max(5, Math.min(25, getRandomValue(tempData[1], 3))),
-                    Math.max(5, Math.min(20, getRandomValue(tempData[2], 2))),
-                    Math.max(5, Math.min(25, getRandomValue(tempData[3], 3)))
+                    Math.max(65, Math.min(85, getRandomValue(tempData[0], 3))), // Normal increases
+                    Math.max(5, Math.min(12, getRandomValue(tempData[1], 2))), // Rendah decreases
+                    Math.max(5, Math.min(12, getRandomValue(tempData[2], 2))), // Tinggi decreases
+                    Math.max(5, Math.min(12, getRandomValue(tempData[3], 2)))  // Tidak Diketahui decreases
                 ];
                 temperatureChart.update('active');
 
-                // Update metrics with animated counting and trend calculation
+                // Update metrics with animated counting and positive trend calculation
                 document.querySelectorAll('.metric-value').forEach((counter, index) => {
                     const baseValue = parseInt(counter.getAttribute('data-target'));
-                    const variation = Math.floor((Math.random() - 0.5) * baseValue * 0.02);
+                    
+                    // Show positive trends for most metrics
+                    let variation;
+                    if (index === 0) { // Total distribution - always increase
+                        variation = Math.floor(Math.random() * baseValue * 0.01);
+                    } else if (index === 1) { // Damaged - decrease
+                        variation = -Math.floor(Math.random() * baseValue * 0.005);
+                    } else if (index === 2) { // Broken - slight decrease
+                        variation = -Math.floor(Math.random() * baseValue * 0.002);
+                    } else { // Expired - decrease
+                        variation = -Math.floor(Math.random() * baseValue * 0.008);
+                    }
+                    
                     const newValue = baseValue + variation;
                     
                     // Calculate trend
                     const previousValue = previousValues[index];
                     const change = newValue - previousValue;
-                    const changePercent = ((change / previousValue) * 100).toFixed(1);
+                    const changePercent = Math.abs((change / previousValue) * 100).toFixed(1);
                     
                     // Update trend display
                     const trendContainer = counter.parentElement.querySelector('.metric-trend');
                     const trendArrow = trendContainer.querySelector('.trend-arrow');
                     const trendValue = trendContainer.querySelector('.trend-value');
                     
-                    if (change > 0) {
+                    if (index === 0) { // Always show increase for total
                         trendContainer.classList.remove('trend-down');
                         trendContainer.classList.add('trend-up');
                         trendArrow.classList.remove('down');
                         trendArrow.classList.add('up');
                         trendValue.textContent = `+${changePercent}%`;
                         trendValue.style.color = '#10b981';
-                    } else if (change < 0) {
-                        trendContainer.classList.remove('trend-up');
-                        trendContainer.classList.add('trend-down');
-                        trendArrow.classList.remove('up');
-                        trendArrow.classList.add('down');
-                        trendValue.textContent = `${changePercent}%`;
-                        trendValue.style.color = '#ef4444';
-                    } else {
-                        trendContainer.classList.remove('trend-up', 'trend-down');
-                        trendArrow.classList.remove('up', 'down');
-                        trendValue.textContent = '0.0%';
-                        trendValue.style.color = '#6b7280';
+                    } else { // Show decrease as positive (less damage/broken/expired)
+                        trendContainer.classList.remove('trend-down');
+                        trendContainer.classList.add('trend-up');
+                        trendArrow.classList.remove('down');
+                        trendArrow.classList.add('up');
+                        trendValue.textContent = `-${changePercent}%`;
+                        trendValue.style.color = '#10b981';
                     }
                     
                     // Animate trend change
