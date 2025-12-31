@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
 <body>
     <header class="header">
@@ -25,6 +27,68 @@
     </header>
 
     <main class="container">
+        <!-- Executive Dashboard Section -->
+        <section class="executive-dashboard">
+            <h2 class="dashboard-title">Executive Dashboard</h2>
+            
+            <!-- Vaccine Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon total"></div>
+                    <div class="metric-content">
+                        <h3>Total Penyebaran Vaksin</h3>
+                        <div class="metric-value" data-target="2000000">0</div>
+                        <div class="metric-percentage">100%</div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon damaged"></div>
+                    <div class="metric-content">
+                        <h3>Vaksin Rusak</h3>
+                        <div class="metric-value" data-target="1000000">0</div>
+                        <div class="metric-percentage">50%</div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon broken"></div>
+                    <div class="metric-content">
+                        <h3>Vaksin Pecah</h3>
+                        <div class="metric-value" data-target="200000">0</div>
+                        <div class="metric-percentage">10%</div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon expired"></div>
+                    <div class="metric-content">
+                        <h3>Vaksin Kedaluwarsa</h3>
+                        <div class="metric-value" data-target="800000">0</div>
+                        <div class="metric-percentage">40%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Status Ketersediaan Stok</h3>
+                    <canvas id="stockStatusChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Material Berdasarkan Status Ketersediaan Stok</h3>
+                    <canvas id="materialChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Status Suhu Kulkas Vaksin</h3>
+                    <canvas id="temperatureChart"></canvas>
+                </div>
+            </div>
+        </section>
+
         <section class="hero">
             <h1>SMILE Platform Documentation</h1>
             <p class="hero-subtitle">
@@ -163,5 +227,163 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Animate number counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.metric-value');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / speed;
+
+                const updateCount = () => {
+                    const count = +counter.innerText.replace(/,/g, '');
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment).toLocaleString();
+                        setTimeout(updateCount, 10);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Initialize charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start counter animations
+            setTimeout(animateCounters, 500);
+
+            // Stock Status Donut Chart
+            const stockStatusCtx = document.getElementById('stockStatusChart').getContext('2d');
+            new Chart(stockStatusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Normal', '< Min', '> Max', 'Habis'],
+                    datasets: [{
+                        data: [45, 20, 25, 10],
+                        backgroundColor: [
+                            '#10b981',
+                            '#f59e0b',
+                            '#3b82f6',
+                            '#ef4444'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+
+            // Material Bar Chart
+            const materialCtx = document.getElementById('materialChart').getContext('2d');
+            new Chart(materialCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['BCG @20 ds', 'IPV @5 ds', 'MR @10 ds', 'Polio @10 ds', 'Hep B @10 ds'],
+                    datasets: [{
+                        label: 'Habis',
+                        data: [80, 76, 74, 73, 50],
+                        backgroundColor: '#ef4444',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart',
+                        delay: (context) => {
+                            let delay = 0;
+                            if (context.type === 'data' && context.mode === 'default') {
+                                delay = context.dataIndex * 200;
+                            }
+                            return delay;
+                        }
+                    }
+                }
+            });
+
+            // Temperature Donut Chart
+            const temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
+            new Chart(temperatureCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Normal', 'Rendah', 'Tinggi', 'Tidak Diketahui'],
+                    datasets: [{
+                        data: [60, 15, 10, 15],
+                        backgroundColor: [
+                            '#10b981',
+                            '#3b82f6',
+                            '#ef4444',
+                            '#6b7280'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
