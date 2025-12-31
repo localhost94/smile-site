@@ -768,6 +768,10 @@ body {
     margin-top: 2rem;
 }
 
+.chart-container.full-width {
+    grid-column: 1 / -1;
+}
+
 .chart-container {
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);

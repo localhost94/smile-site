@@ -102,13 +102,21 @@
                 </div>
                 
                 <div class="chart-container">
-                    <h3>Material Berdasarkan Status Ketersediaan Stok</h3>
-                    <canvas id="materialChart"></canvas>
+                    <h3>Distribusi Vaksin per Tingkat</h3>
+                    <canvas id="distributionChart"></canvas>
                 </div>
                 
                 <div class="chart-container">
                     <h3>Status Suhu Kulkas Vaksin</h3>
                     <canvas id="temperatureChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Additional Charts Row -->
+            <div class="charts-grid">
+                <div class="chart-container full-width">
+                    <h3>Alur Distribusi Vaksin Nasional</h3>
+                    <canvas id="flowChart"></canvas>
                 </div>
             </div>
         </section>
@@ -350,47 +358,53 @@
                 plugins: [ChartDataLabels]
             });
 
-            // Material Bar Chart
-            const materialCtx = document.getElementById('materialChart').getContext('2d');
-            const materialChart = new Chart(materialCtx, {
+            // Distribution Bar Chart
+            const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+            const distributionChart = new Chart(distributionCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['BCG @20 ds', 'IPV @5 ds', 'MR @10 ds', 'Polio @10 ds', 'Hep B @10 ds'],
-                    datasets: [{
-                        label: 'Habis',
-                        data: [80, 76, 74, 73, 50],
-                        backgroundColor: '#ef4444',
-                        borderRadius: 5,
-                        barPercentage: 0.6
-                    }]
+                    labels: ['Gudang Vaksin', 'Dinkes Prov', 'Dinkes Kako', 'Puskesmas'],
+                    datasets: [
+                        {
+                            label: 'Total Penerimaan',
+                            data: [480220, 577626579, 577939799, 561694989],
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 5,
+                            barPercentage: 0.7
+                        },
+                        {
+                            label: 'Total Distribusi',
+                            data: [1127530, 586374420, 554862497, 8860554],
+                            backgroundColor: '#10b981',
+                            borderRadius: 5,
+                            barPercentage: 0.7
+                        },
+                        {
+                            label: 'Total Konsumsi',
+                            data: [0, 512082, 10790124, 529013032],
+                            backgroundColor: '#f59e0b',
+                            borderRadius: 5,
+                            barPercentage: 0.7
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    layout: {
-                        padding: {
-                            top: 30
-                        }
-                    },
                     plugins: {
                         legend: {
-                            display: false
-                        },
-                        datalabels: {
-                            anchor: 'end',
-                            align: 'top',
-                            formatter: (value) => value + '%',
-                            font: {
-                                weight: 'bold',
-                                size: 11
-                            },
-                            color: '#374151',
-                            padding: 4
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 11
+                                }
+                            }
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                    return context.dataset.label + ': ' + context.parsed.y.toLocaleString();
                                 }
                             }
                         }
@@ -410,10 +424,14 @@
                         },
                         y: {
                             beginAtZero: true,
-                            max: 100,
                             ticks: {
                                 callback: function(value) {
-                                    return value + '%';
+                                    if (value >= 1000000) {
+                                        return (value / 1000000).toFixed(1) + 'M';
+                                    } else if (value >= 1000) {
+                                        return (value / 1000).toFixed(0) + 'K';
+                                    }
+                                    return value;
                                 },
                                 font: {
                                     size: 10
@@ -427,17 +445,9 @@
                     },
                     animation: {
                         duration: 2000,
-                        easing: 'easeInOutQuart',
-                        delay: (context) => {
-                            let delay = 0;
-                            if (context.type === 'data' && context.mode === 'default') {
-                                delay = context.dataIndex * 200;
-                            }
-                            return delay;
-                        }
+                        easing: 'easeInOutQuart'
                     }
-                },
-                plugins: [ChartDataLabels]
+                }
             });
 
             // Temperature Donut Chart
@@ -501,6 +511,91 @@
                 plugins: [ChartDataLabels]
             });
 
+            // Flow Chart - Sankey style visualization
+            const flowCtx = document.getElementById('flowChart').getContext('2d');
+            const flowChart = new Chart(flowCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Kemenkes RI', 'Gudang Vaksin', 'Dinkes Prov', 'Dinkes Kako', 'Puskesmas'],
+                    datasets: [
+                        {
+                            label: 'Sisa Stok',
+                            data: [724747372, 294720, 20288110, 18672327, 17772705],
+                            backgroundColor: '#6366f1',
+                            borderRadius: 5,
+                            barPercentage: 0.6
+                        },
+                        {
+                            label: 'Total Konsumsi',
+                            data: [0, 0, 512082, 10790124, 529013032],
+                            backgroundColor: '#10b981',
+                            borderRadius: 5,
+                            barPercentage: 0.6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.x.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            stacked: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000000) {
+                                        return (value / 1000000).toFixed(1) + 'M';
+                                    } else if (value >= 1000) {
+                                        return (value / 1000).toFixed(0) + 'K';
+                                    }
+                                    return value;
+                                },
+                                font: {
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: {
+                                font: {
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+
             // Store previous values for trend calculation
             let previousValues = [2000000, 50000, 10000, 20000];
 
@@ -524,17 +619,25 @@
                 stockStatusChart.data.datasets[0].data = newStockData;
                 stockStatusChart.update('active');
 
-                // Update Material Chart - show improvement (lower is better for "Habis")
-                const materialData = materialChart.data.datasets[0].data;
-                const newMaterialData = materialData.map((value, index) => {
-                    setTimeout(() => {
-                        // Show decreasing trend (improvement)
-                        const newValue = Math.max(20, value - Math.random() * 3);
-                        materialChart.data.datasets[0].data[index] = newValue;
-                        materialChart.update('active');
-                    }, index * 100);
-                    return Math.max(20, value - Math.random() * 3);
+                // Update Distribution Chart
+                const distributionData = distributionChart.data.datasets;
+                distributionData.forEach((dataset, datasetIndex) => {
+                    dataset.data.forEach((value, index) => {
+                        const variation = getRandomValue(value, value * 0.02);
+                        distributionChart.data.datasets[datasetIndex].data[index] = Math.max(0, variation);
+                    });
                 });
+                distributionChart.update('active');
+
+                // Update Flow Chart
+                const flowData = flowChart.data.datasets;
+                flowData.forEach((dataset, datasetIndex) => {
+                    dataset.data.forEach((value, index) => {
+                        const variation = getRandomValue(value, value * 0.02);
+                        flowChart.data.datasets[datasetIndex].data[index] = Math.max(0, variation);
+                    });
+                });
+                flowChart.update('active');
 
                 // Update Temperature Chart - show improvement
                 const tempData = temperatureChart.data.datasets[0].data;
