@@ -1,6 +1,6 @@
 # SMILE Platform Documentation
 
-This repository contains the documentation for the SMILE (Smart Integrated Logistics Engine) Digital Public Good (DPG) platform.
+This repository contains the documentation for the SMILE (Sistem Monitoring Imunisasi dan Logistik Secara Elektronik) Digital Public Good (DPG) platform.
 
 ## Overview
 
