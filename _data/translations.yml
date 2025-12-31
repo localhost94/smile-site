@@ -9,7 +9,7 @@ en:
     contact: "Contact"
   hero:
     title: "SMILE Platform Documentation"
-    subtitle: "SMILE (Smart Integrated Logistics Engine) is a comprehensive logistics management platform developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia. Since its inception in 2018, SMILE has evolved into a robust Digital Public Good that addresses multiple Sustainable Development Goals (SDGs)."
+    subtitle: "SMILE (Sistem Monitoring Imunisasi dan Logistik secara Elektronik) is a system that helps healthcare workers record and monitor vaccine ordering, distribution, and logistics in real-time. Developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia since 2018, SMILE has evolved into a robust Digital Public Good that supports multiple Sustainable Development Goals (SDGs)."
     stats:
       core_documents: "Core Documents"
       since: "Since"
@@ -28,7 +28,7 @@ en:
       national_flow: "National Vaccine Distribution Flow"
   about:
     title: "About SMILE"
-    description1: "SMILE (Smart Integrated Logistics Engine) is a comprehensive logistics management platform developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia. Since its inception in 2018, SMILE has evolved into a robust Digital Public Good that addresses multiple Sustainable Development Goals (SDGs)."
+    description1: "SMILE (Sistem Monitoring Imunisasi dan Logistik secara Elektronik) is a system that helps healthcare workers record and monitor vaccine ordering, distribution, and logistics in real-time. Developed jointly by the Ministry of Health of Indonesia and UNDP Indonesia since 2018, SMILE has evolved into a robust Digital Public Good that supports multiple Sustainable Development Goals (SDGs)."
     description2: "The platform has been successfully deployed across multiple regions, improving healthcare supply chain management and ensuring equitable distribution of medical resources to communities in need."
   footer:
     privacy: "Privacy Policy"
