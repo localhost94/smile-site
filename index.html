@@ -37,7 +37,13 @@
                     <div class="metric-icon total"></div>
                     <div class="metric-content">
                         <h3>Total Penyebaran Vaksin</h3>
-                        <div class="metric-value" data-target="2000000">0</div>
+                        <div class="metric-wrapper">
+                            <div class="metric-value" data-target="2000000">0</div>
+                            <div class="metric-trend">
+                                <span class="trend-arrow"></span>
+                                <span class="trend-value">+2.5%</span>
+                            </div>
+                        </div>
                         <div class="metric-percentage">100%</div>
                     </div>
                 </div>
@@ -46,7 +52,13 @@
                     <div class="metric-icon damaged"></div>
                     <div class="metric-content">
                         <h3>Vaksin Rusak</h3>
-                        <div class="metric-value" data-target="1000000">0</div>
+                        <div class="metric-wrapper">
+                            <div class="metric-value" data-target="1000000">0</div>
+                            <div class="metric-trend trend-down">
+                                <span class="trend-arrow down"></span>
+                                <span class="trend-value">-1.2%</span>
+                            </div>
+                        </div>
                         <div class="metric-percentage">50%</div>
                     </div>
                 </div>
@@ -55,7 +67,13 @@
                     <div class="metric-icon broken"></div>
                     <div class="metric-content">
                         <h3>Vaksin Pecah</h3>
-                        <div class="metric-value" data-target="200000">0</div>
+                        <div class="metric-wrapper">
+                            <div class="metric-value" data-target="200000">0</div>
+                            <div class="metric-trend trend-up">
+                                <span class="trend-arrow up"></span>
+                                <span class="trend-value">+0.5%</span>
+                            </div>
+                        </div>
                         <div class="metric-percentage">10%</div>
                     </div>
                 </div>
@@ -64,7 +82,13 @@
                     <div class="metric-icon expired"></div>
                     <div class="metric-content">
                         <h3>Vaksin Kedaluwarsa</h3>
-                        <div class="metric-value" data-target="800000">0</div>
+                        <div class="metric-wrapper">
+                            <div class="metric-value" data-target="800000">0</div>
+                            <div class="metric-trend trend-down">
+                                <span class="trend-arrow down"></span>
+                                <span class="trend-value">-3.1%</span>
+                            </div>
+                        </div>
                         <div class="metric-percentage">40%</div>
                     </div>
                 </div>
@@ -292,6 +316,26 @@
                                     size: 12
                                 }
                             }
+                        },
+                        datalabels: {
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                let dataArr = ctx.chart.data.datasets[0].data;
+                                dataArr.map(data => {
+                                    sum += data;
+                                });
+                                let percentage = (value * 100 / sum).toFixed(1) + "%";
+                                return percentage;
+                            },
+                            color: '#fff',
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            },
+                            animation: {
+                                animationDuration: 1000,
+                                animationEasing: 'easeOutQuart'
+                            }
                         }
                     },
                     animation: {
@@ -300,7 +344,8 @@
                         duration: 2000,
                         easing: 'easeInOutQuart'
                     }
-                }
+                },
+                plugins: [ChartDataLabels]
             });
 
             // Material Bar Chart
@@ -322,6 +367,20 @@
                     plugins: {
                         legend: {
                             display: false
+                        },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value + '%',
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            },
+                            color: '#374151',
+                            animation: {
+                                animationDuration: 1000,
+                                animationEasing: 'easeOutQuart'
+                            }
                         }
                     },
                     scales: {
@@ -344,9 +403,14 @@
                                 delay = context.dataIndex * 200;
                             }
                             return delay;
+                        },
+                        onComplete: () => {
+                            // Trigger label animation after bars finish
+                            materialChart.options.plugins.datalabels.animation = true;
                         }
                     }
-                }
+                },
+                plugins: [ChartDataLabels]
             });
 
             // Temperature Donut Chart
@@ -378,6 +442,26 @@
                                     size: 12
                                 }
                             }
+                        },
+                        datalabels: {
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                let dataArr = ctx.chart.data.datasets[0].data;
+                                dataArr.map(data => {
+                                    sum += data;
+                                });
+                                let percentage = (value * 100 / sum).toFixed(1) + "%";
+                                return percentage;
+                            },
+                            color: '#fff',
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            },
+                            animation: {
+                                animationDuration: 1000,
+                                animationEasing: 'easeOutQuart'
+                            }
                         }
                     },
                     animation: {
@@ -386,8 +470,12 @@
                         duration: 2000,
                         easing: 'easeInOutQuart'
                     }
-                }
+                },
+                plugins: [ChartDataLabels]
             });
+
+            // Store previous values for trend calculation
+            let previousValues = [2000000, 1000000, 200000, 800000];
 
             // Real-time updates
             setInterval(() => {
@@ -429,14 +517,54 @@
                 ];
                 temperatureChart.update('active');
 
-                // Update metrics with animated counting
+                // Update metrics with animated counting and trend calculation
                 document.querySelectorAll('.metric-value').forEach((counter, index) => {
                     const baseValue = parseInt(counter.getAttribute('data-target'));
                     const variation = Math.floor((Math.random() - 0.5) * baseValue * 0.02);
                     const newValue = baseValue + variation;
                     
+                    // Calculate trend
+                    const previousValue = previousValues[index];
+                    const change = newValue - previousValue;
+                    const changePercent = ((change / previousValue) * 100).toFixed(1);
+                    
+                    // Update trend display
+                    const trendContainer = counter.parentElement.querySelector('.metric-trend');
+                    const trendArrow = trendContainer.querySelector('.trend-arrow');
+                    const trendValue = trendContainer.querySelector('.trend-value');
+                    
+                    if (change > 0) {
+                        trendContainer.classList.remove('trend-down');
+                        trendContainer.classList.add('trend-up');
+                        trendArrow.classList.remove('down');
+                        trendArrow.classList.add('up');
+                        trendValue.textContent = `+${changePercent}%`;
+                        trendValue.style.color = '#10b981';
+                    } else if (change < 0) {
+                        trendContainer.classList.remove('trend-up');
+                        trendContainer.classList.add('trend-down');
+                        trendArrow.classList.remove('up');
+                        trendArrow.classList.add('down');
+                        trendValue.textContent = `${changePercent}%`;
+                        trendValue.style.color = '#ef4444';
+                    } else {
+                        trendContainer.classList.remove('trend-up', 'trend-down');
+                        trendArrow.classList.remove('up', 'down');
+                        trendValue.textContent = '0.0%';
+                        trendValue.style.color = '#6b7280';
+                    }
+                    
+                    // Animate trend change
+                    trendContainer.style.animation = 'none';
+                    setTimeout(() => {
+                        trendContainer.style.animation = 'trendPulse 0.5s ease-in-out';
+                    }, 10);
+                    
                     // Animate number change
                     animateValue(counter, parseInt(counter.innerText.replace(/,/g, '')), newValue, 500);
+                    
+                    // Store new value for next comparison
+                    previousValues[index] = newValue;
                     
                     setTimeout(() => {
                         counter.classList.remove('updating');
