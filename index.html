@@ -360,12 +360,18 @@
                         label: 'Habis',
                         data: [80, 76, 74, 73, 50],
                         backgroundColor: '#ef4444',
-                        borderRadius: 5
+                        borderRadius: 5,
+                        barPercentage: 0.6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
+                    layout: {
+                        padding: {
+                            top: 30
+                        }
+                    },
                     plugins: {
                         legend: {
                             display: false
@@ -376,23 +382,46 @@
                             formatter: (value) => value + '%',
                             font: {
                                 weight: 'bold',
-                                size: 12
+                                size: 11
                             },
                             color: '#374151',
-                            animation: {
-                                animationDuration: 1000,
-                                animationEasing: 'easeOutQuart'
+                            padding: 4
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                }
                             }
                         }
                     },
                     scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 10
+                                },
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
                         y: {
                             beginAtZero: true,
                             max: 100,
                             ticks: {
                                 callback: function(value) {
                                     return value + '%';
-                                }
+                                },
+                                font: {
+                                    size: 10
+                                },
+                                padding: 5
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
                             }
                         }
                     },
@@ -405,10 +434,6 @@
                                 delay = context.dataIndex * 200;
                             }
                             return delay;
-                        },
-                        onComplete: () => {
-                            // Trigger label animation after bars finish
-                            materialChart.options.plugins.datalabels.animation = true;
                         }
                     }
                 },

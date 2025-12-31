@@ -776,6 +776,7 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    min-height: 320px;
 }
 
 .chart-container::before {
@@ -853,6 +854,8 @@ body {
     max-height: 250px;
     position: relative;
     z-index: 1;
+    width: 100% !important;
+    height: auto !important;
 }
 
 /* Additional Animations */
