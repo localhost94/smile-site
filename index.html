@@ -391,22 +391,33 @@
 
             // Real-time updates
             setInterval(() => {
+                // Add updating class for visual feedback
+                document.querySelectorAll('.metric-value').forEach(counter => {
+                    counter.classList.add('updating');
+                });
+
                 // Update Stock Status Chart
                 const stockData = stockStatusChart.data.datasets[0].data;
-                stockStatusChart.data.datasets[0].data = [
+                const newStockData = [
                     Math.max(10, Math.min(70, getRandomValue(stockData[0], 5))),
                     Math.max(5, Math.min(30, getRandomValue(stockData[1], 3))),
                     Math.max(10, Math.min(40, getRandomValue(stockData[2], 4))),
                     Math.max(5, Math.min(20, getRandomValue(stockData[3], 2)))
                 ];
-                stockStatusChart.update('none');
+                
+                // Animate the transition
+                stockStatusChart.data.datasets[0].data = newStockData;
+                stockStatusChart.update('active');
 
-                // Update Material Chart
+                // Update Material Chart with staggered animation
                 const materialData = materialChart.data.datasets[0].data;
-                materialChart.data.datasets[0].data = materialData.map(value => 
-                    Math.max(20, Math.min(95, getRandomValue(value, 8)))
-                );
-                materialChart.update('none');
+                const newMaterialData = materialData.map((value, index) => {
+                    setTimeout(() => {
+                        materialChart.data.datasets[0].data[index] = Math.max(20, Math.min(95, getRandomValue(value, 8)));
+                        materialChart.update('active');
+                    }, index * 100);
+                    return Math.max(20, Math.min(95, getRandomValue(value, 8)));
+                });
 
                 // Update Temperature Chart
                 const tempData = temperatureChart.data.datasets[0].data;
@@ -416,27 +427,124 @@
                     Math.max(5, Math.min(20, getRandomValue(tempData[2], 2))),
                     Math.max(5, Math.min(25, getRandomValue(tempData[3], 3)))
                 ];
-                temperatureChart.update('none');
+                temperatureChart.update('active');
 
-                // Update metrics with small variations
+                // Update metrics with animated counting
                 document.querySelectorAll('.metric-value').forEach((counter, index) => {
                     const baseValue = parseInt(counter.getAttribute('data-target'));
                     const variation = Math.floor((Math.random() - 0.5) * baseValue * 0.02);
                     const newValue = baseValue + variation;
-                    counter.innerText = newValue.toLocaleString();
+                    
+                    // Animate number change
+                    animateValue(counter, parseInt(counter.innerText.replace(/,/g, '')), newValue, 500);
+                    
+                    setTimeout(() => {
+                        counter.classList.remove('updating');
+                    }, 500);
                 });
+
+                // Trigger ripple effect on random chart
+                const charts = document.querySelectorAll('.chart-container');
+                const randomChart = charts[Math.floor(Math.random() * charts.length)];
+                createRippleEffect(randomChart);
 
             }, 3000); // Update every 3 seconds
 
-            // Add pulsing effect to charts
+            // Add continuous pulse to dashboard title
             setInterval(() => {
-                document.querySelectorAll('.chart-container').forEach(container => {
-                    container.style.transform = 'scale(1.02)';
+                document.querySelector('.dashboard-title').style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    document.querySelector('.dashboard-title').style.transform = 'scale(1)';
+                }, 200);
+            }, 4000);
+
+            // Create floating particles effect
+            createFloatingParticles();
+
+            // Add wave animation to metrics
+            setInterval(() => {
+                document.querySelectorAll('.metric-card').forEach((card, index) => {
                     setTimeout(() => {
-                        container.style.transform = 'scale(1)';
-                    }, 300);
+                        card.style.transform = 'translateY(-5px) scale(1.02)';
+                        setTimeout(() => {
+                            card.style.transform = 'translateY(0) scale(1)';
+                        }, 300);
+                    }, index * 100);
                 });
-            }, 5000);
+            }, 6000);
+
+            // Animate value changes
+            function animateValue(element, start, end, duration) {
+                const range = end - start;
+                const increment = range / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                        element.innerText = end.toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        element.innerText = Math.round(current).toLocaleString();
+                    }
+                }, 16);
+            }
+
+            // Create ripple effect
+            function createRippleEffect(container) {
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: rgba(37, 99, 235, 0.1);
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    z-index: 0;
+                `;
+                container.appendChild(ripple);
+                
+                ripple.animate([
+                    { width: '0', height: '0', opacity: 0.5 },
+                    { width: '300px', height: '300px', opacity: 0 }
+                ], {
+                    duration: 1000,
+                    easing: 'ease-out'
+                }).onfinish = () => ripple.remove();
+            }
+
+            // Create floating particles
+            function createFloatingParticles() {
+                const dashboard = document.querySelector('.executive-dashboard');
+                
+                setInterval(() => {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: absolute;
+                        width: 4px;
+                        height: 4px;
+                        background: linear-gradient(45deg, #3b82f6, #10b981);
+                        border-radius: 50%;
+                        left: ${Math.random() * 100}%;
+                        bottom: -10px;
+                        pointer-events: none;
+                        z-index: 0;
+                    `;
+                    dashboard.appendChild(particle);
+                    
+                    particle.animate([
+                        { transform: 'translateY(0) scale(0)', opacity: 0 },
+                        { transform: 'translateY(-20px) scale(1)', opacity: 1 },
+                        { transform: 'translateY(-300px) scale(0.5)', opacity: 0 }
+                    ], {
+                        duration: 3000,
+                        easing: 'ease-out'
+                    }).onfinish = () => particle.remove();
+                }, 2000);
+            }
         });
     </script>
 </body>
