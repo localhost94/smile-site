@@ -136,6 +136,16 @@
                     <h3 data-translate="chart-temperature">Vaccine Refrigerator Temperature Status</h3>
                     <canvas id="temperatureChart"></canvas>
                 </div>
+                
+                <div class="chart-container">
+                    <h3>Monthly Last Mile Distribution by Material Type (Unit)</h3>
+                    <canvas id="monthlyDistributionChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Jan 25 - Medicine Distribution</h3>
+                    <canvas id="medicineDistributionChart"></canvas>
+                </div>
             </div>
             
         </section>
@@ -488,7 +498,7 @@
                 data: {
                     labels: ['Normal (2-8°C)', 'Rendah (<2°C)', 'Tinggi (>8°C)', 'Tidak Diketahui'],
                     datasets: [{
-                        data: [75, 10, 5, 10],
+                        data: [85, 7, 5, 1],
                         backgroundColor: [
                             '#10b981',
                             '#3b82f6',
@@ -540,6 +550,172 @@
                     }
                 },
                 plugins: [ChartDataLabels]
+            });
+
+            // Monthly Last Mile Distribution Stacked Bar Chart
+            const monthlyDistributionCtx = document.getElementById('monthlyDistributionChart').getContext('2d');
+            const monthlyDistributionChart = new Chart(monthlyDistributionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Vaccine',
+                            data: [5000000, 5200000, 4800000, 5100000, 5300000, 5500000, 5400000, 5600000, 5800000, 6000000, 5900000, 6100000],
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 0,
+                            barPercentage: 0.8
+                        },
+                        {
+                            label: 'Medicine',
+                            data: [3000000, 3100000, 2900000, 3200000, 3300000, 3400000, 3350000, 3450000, 3500000, 3600000, 3550000, 3650000],
+                            backgroundColor: '#8b5cf6',
+                            borderRadius: 0,
+                            barPercentage: 0.8
+                        },
+                        {
+                            label: 'Consumable',
+                            data: [2000000, 2100000, 1900000, 2200000, 2300000, 2400000, 2350000, 2450000, 2500000, 2600000, 2550000, 2650000],
+                            backgroundColor: '#eab308',
+                            borderRadius: 0,
+                            barPercentage: 0.8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' units';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            ticks: {
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000000) {
+                                        return (value / 1000000).toLocaleString() + 'M';
+                                    } else if (value >= 1000) {
+                                        return (value / 1000).toLocaleString() + 'K';
+                                    }
+                                    return value;
+                                },
+                                font: {
+                                    size: 12
+                                },
+                                padding: 10
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+
+            // Medicine Distribution Horizontal Bar Chart
+            const medicineDistributionCtx = document.getElementById('medicineDistributionChart').getContext('2d');
+            const medicineDistributionChart = new Chart(medicineDistributionCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'VIROCHECK HIV 1/2',
+                        'TREPOCHECK Syphilis',
+                        'INDEC HIV 1/2 & Syphilis Combo',
+                        'Rapidtest COVID-19 Antigen',
+                        'Alat Rapid Test SD Bioline',
+                        'Dexamethasone 0.5 mg',
+                        'Paracetamol 500 mg',
+                        'Antibiotik Azithromycin',
+                        'Vitamin C 500 mg',
+                        'Obat Batuk Sirup'
+                    ],
+                    datasets: [{
+                        label: 'Units',
+                        data: [354, 338, 234, 180, 165, 150, 140, 125, 110, 95],
+                        backgroundColor: '#8b5cf6',
+                        borderRadius: 3,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Units: ' + context.parsed.x.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 400,
+                            ticks: {
+                                font: {
+                                    size: 12
+                                },
+                                padding: 10
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                font: {
+                                    size: 11
+                                },
+                                autoSkip: false
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
             });
 
             
