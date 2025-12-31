@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -137,11 +138,88 @@
                 </div>
             </div>
             
-            <!-- Additional Charts Row -->
+            <!-- National Vaccine Distribution Flow -->
             <div class="charts-grid">
                 <div class="chart-container full-width">
-                    <h3 data-translate="chart-flow">National Vaccine Distribution Flow</h3>
-                    <canvas id="flowChart"></canvas>
+                    <h3 data-translate="chart-flow">Alur Distribusi Vaksin Nasional</h3>
+                    <div class="mermaid" style="text-align: center; padding: 20px;">
+                        graph TD
+                            A[Kementerian Kesehatan RI] -->|Distribusi Vaksin| B[Gudang Vaksin Utama]
+                            B -->|Pengiriman ke Provinsi| C[Dinas Kesehatan Provinsi]
+                            C -->|Distribusi ke Kab/Kota| D[Dinas Kesehatan Kab/Kota]
+                            D -->|Pengiriman ke Fasilitas| E[Puskesmas]
+                            E -->|Pelayanan ke Masyarakat| F[Masyarakat Penerima Vaksin]
+                            
+                            style A fill:#1e40af,stroke:#fff,stroke-width:2px,color:#fff
+                            style B fill:#2563eb,stroke:#fff,stroke-width:2px,color:#fff
+                            style C fill:#3b82f6,stroke:#fff,stroke-width:2px,color:#fff
+                            style D fill:#60a5fa,stroke:#fff,stroke-width:2px,color:#fff
+                            style E fill:#93c5fd,stroke:#fff,stroke-width:2px,color:#fff
+                            style F fill:#dbeafe,stroke:#1e40af,stroke-width:2px,color:#1e40af
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vaccine Distribution Data Table -->
+            <div class="charts-grid">
+                <div class="chart-container full-width">
+                    <h3>Data Distribusi Vaksin (Dummy Values)</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                            <thead>
+                                <tr style="background-color: #f3f4f6;">
+                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Tingkat</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #e5e7eb;">Stok Awal</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #e5e7eb;">Penerimaan</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #e5e7eb;">Distribusi</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #e5e7eb;">Konsumsi</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #e5e7eb;">Stok Akhir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Kemenkes RI</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">800,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">-</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">750,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">0</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb; font-weight: bold;">50,000,000</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Gudang Vaksin</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">50,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">750,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">700,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">0</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb; font-weight: bold;">100,000,000</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Dinkes Provinsi</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">100,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">700,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">650,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">50,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb; font-weight: bold;">100,000,000</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Dinkes Kab/Kota</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">100,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">650,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">600,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">100,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb; font-weight: bold;">50,000,000</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Puskesmas</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">50,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">600,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">0</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb;">550,000,000</td>
+                                    <td style="padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb; font-weight: bold;">100,000,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -320,6 +398,17 @@
 
         // Initialize charts when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Mermaid
+            mermaid.initialize({ 
+                startOnLoad: true,
+                theme: 'default',
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true,
+                    curve: 'basis'
+                }
+            });
+            
             // Start counter animations
             setTimeout(animateCounters, 500);
 
@@ -537,91 +626,7 @@
                 plugins: [ChartDataLabels]
             });
 
-            // Flow Chart - Sankey style visualization
-            const flowCtx = document.getElementById('flowChart').getContext('2d');
-            const flowChart = new Chart(flowCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Kemenkes RI', 'Gudang Vaksin', 'Dinkes Prov', 'Dinkes Kako', 'Puskesmas'],
-                    datasets: [
-                        {
-                            label: 'Sisa Stok',
-                            data: [724747372, 294720, 20288110, 18672327, 17772705],
-                            backgroundColor: '#6366f1',
-                            borderRadius: 5,
-                            barPercentage: 0.6
-                        },
-                        {
-                            label: 'Total Konsumsi',
-                            data: [0, 0, 512082, 10790124, 529013032],
-                            backgroundColor: '#10b981',
-                            borderRadius: 5,
-                            barPercentage: 0.6
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    indexAxis: 'y',
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 15,
-                                font: {
-                                    size: 12
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.x.toLocaleString();
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            stacked: true,
-                            ticks: {
-                                callback: function(value) {
-                                    if (value >= 1000000) {
-                                        return (value / 1000000).toFixed(1) + 'M';
-                                    } else if (value >= 1000) {
-                                        return (value / 1000).toFixed(0) + 'K';
-                                    }
-                                    return value;
-                                },
-                                font: {
-                                    size: 11
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            }
-                        },
-                        y: {
-                            stacked: true,
-                            ticks: {
-                                font: {
-                                    size: 11
-                                }
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    animation: {
-                        duration: 2000,
-                        easing: 'easeInOutQuart'
-                    }
-                }
-            });
-
+            
             // Store previous values for trend calculation
             let previousValues = [2000000, 50000, 10000, 20000];
 
@@ -655,16 +660,7 @@
                 });
                 distributionChart.update('active');
 
-                // Update Flow Chart
-                const flowData = flowChart.data.datasets;
-                flowData.forEach((dataset, datasetIndex) => {
-                    dataset.data.forEach((value, index) => {
-                        const variation = getRandomValue(value, value * 0.02);
-                        flowChart.data.datasets[datasetIndex].data[index] = Math.max(0, variation);
-                    });
-                });
-                flowChart.update('active');
-
+                
                 // Update Temperature Chart - show improvement
                 const tempData = temperatureChart.data.datasets[0].data;
                 temperatureChart.data.datasets[0].data = [
