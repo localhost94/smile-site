@@ -79,7 +79,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-damaged">Damaged Vaccines</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="50000000">0</div>
+                            <div class="metric-value" data-target="50000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">-1.2%</span>
@@ -94,7 +94,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-broken">Broken Vaccines</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="100000000">0</div>
+                            <div class="metric-value" data-target="100000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">-0.5%</span>
@@ -109,7 +109,7 @@
                     <div class="metric-content">
                         <h3 data-translate="metric-expired">Expired Vaccines</h3>
                         <div class="metric-wrapper">
-                            <div class="metric-value" data-target="20000000">0</div>
+                            <div class="metric-value" data-target="200000">0</div>
                             <div class="metric-trend trend-up">
                                 <span class="trend-arrow up"></span>
                                 <span class="trend-value">-3.1%</span>
@@ -652,7 +652,13 @@
                 const charts = document.querySelectorAll('.chart-container');
                 const randomChart = charts[Math.floor(Math.random() * charts.length)];
                 createRippleEffect(randomChart);
-
+                
+                // Remove updating class after animation
+                setTimeout(() => {
+                    document.querySelectorAll('.metric-value').forEach(counter => {
+                        counter.classList.remove('updating');
+                    });
+                }, 500);
             }, 3000); // Update every 3 seconds
 
             // Add continuous pulse to dashboard title
