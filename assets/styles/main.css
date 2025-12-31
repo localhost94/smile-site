@@ -948,11 +948,10 @@ body {
 }
 
 .chart-container canvas {
-    max-height: 300px;
     position: relative;
     z-index: 1;
     width: 100% !important;
-    height: 300px !important;
+    height: 350px !important;
 }
 
 /* Additional Animations */
